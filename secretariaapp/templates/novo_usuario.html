@@ -1,0 +1,15 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app" >
+
+
+<h2>Novo Usuario</h2>
+
+<form class="ui form" action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Salvar" class="ui button positive" />
+    <a href="javascript:window.history.go(-1)" class="ui button" >Cancelar</a>
+</form>
+
+
+</div>
+{% include 'rodape.html' %}

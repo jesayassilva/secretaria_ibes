@@ -1,0 +1,43 @@
+{% load staticfiles %}
+
+
+
+<div class="ui inverted vertical footer segment red">
+<!--<div class="ui inverted vertical footer segment green">-->
+  <div class="ui center aligned container">
+    <div class="ui stackable inverted divided grid">
+
+      <div class="three wide column">
+        </div>
+      </div>
+			<!--
+			<img src="data:image/png;base64,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" class="ui centered image circular ajustar_imagem_embaixo">
+			-->
+			<p></p>
+      <div class="seven wide column">
+        <h3 class="ui inverted header">IBES</h3>
+        <!-- <p>Esté site este direcionado ao gerenciamento de saida de alunos durante horario de aula.</p> -->
+				<p>Amando você em amor a Deus.</p>
+      </div>
+    </div>
+    <div class="ui inverted section divider"></div>
+
+    <div class="ui horizontal inverted small divided link list" class="ui text container" style="text-align: center;margin-top: 2em;">
+
+      <a class="item" href="https://mail.google.com/mail/u/0/#search/jesayassilva%40gmail.com"> &copy; 2018 IBES, Desenvolvido por Jesaías Silva.</a>
+      <a class="item" >Versão 1.0</a>
+      <a class="item" href="{% url 'secretariaapp:suporte' %}">Suporte</a>
+
+    </div>
+		<p></p>
+		<!--<img src="https://scontent.ffor11-1.fna.fbcdn.net/v/t1.0-1/p720x720/22279761_1848354431858889_7014932335922653062_n.png?oh=5a4763a8e0c893c69194de6e05da4200&oe=5B12AE4D" class="ui centered image circular ajustar_imagem_embaixo">-->
+		<img src="{%  static 'imagens/ibes.png' %}" class="ui centered image circular ajustar_imagem_embaixo">
+
+
+  </div>
+
+</body>
+
+
+
+</html>

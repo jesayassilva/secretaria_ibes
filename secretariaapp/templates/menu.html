@@ -1,0 +1,43 @@
+<div class="ui simple dropdown item">
+  Membros <i class="dropdown icon"></i>
+  <div class="menu">
+    <a class="item" href="{% url 'secretariaapp:membros' %}">Todos</a>
+    <a class="item" href="{% url 'secretariaapp:membroNew' %}">Novo</a>
+  </div>
+</div>
+
+<div class="ui simple dropdown item">
+  Ministérios <i class="dropdown icon"></i>
+  <div class="menu">
+    <a class="item" href="{% url 'secretariaapp:ministerios' %}">Todos</a>
+    <a class="item" href="{% url 'secretariaapp:ministerioNew' %}">Novo</a>
+  </div>
+</div>
+
+<div class="ui simple dropdown item">
+  Grupos Pequenos <i class="dropdown icon"></i>
+  <div class="menu">
+    <a class="item" href="{% url 'secretariaapp:grupo_pequeno' %}">Todos</a>
+    <a class="item" href="{% url 'secretariaapp:grupo_pequenoNew' %}">Novo</a>
+  </div>
+</div>
+
+<div class="ui simple dropdown item">
+  Usuários <i class="dropdown icon"></i>
+  <div class="menu">
+    <a class="item" href="{% url 'secretariaapp:perfil' %}">Todos os Usuários</a>
+    <a class="item" href="{% url 'secretariaapp:userNew' %}">Novo Usuário</a>
+  </div>
+</div>
+
+<a href="{% url 'secretariaapp:relatorios' "relatorios" %}" class="item">Relatórios</a>
+
+<div class="ui simple dropdown item">
+  Meu Usuário <i class="dropdown icon"></i>
+  <div class="menu">
+    <a class="item" href="{% url 'secretariaapp:meu_perfil' %}">Alterar Usuário e Senha</a>
+    <a class="item" href="{% url 'secretariaapp:meu_perfilDetalhes' %}">Meu Perfil</a>
+  </div>
+</div>
+
+<a href="{% url 'secretariaapp:logout' %}" class="item">Sair</a>

@@ -1,0 +1,78 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app">
+        <h2>Dados do Grupo Pequeno</h2>
+
+        <div class="field">
+          <label>Nome do Grupo Pequeno: </label>
+          {{grupo_pequeno.nome}}
+        </div>
+
+        <div class="field">
+          <label>Descrição: </label>
+          {{grupo_pequeno.descricao}}
+        </div>
+
+
+        <h3>Lideres do Grupo Pequeno: </h3>
+        <table  class="ui celled table" >
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Observações</th>
+              <th colspan="2"> Opções</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for lider_grupo_pequeno in lider_grupo_pequeno  %}
+              <tr>
+                <td>{{  lider_grupo_pequeno.lider }}</td>
+                <td>{{  lider_grupo_pequeno.obs }}</td>
+                <td><a href="{% url 'secretariaapp:lider_grupo_pequenoUpdate' lider_grupo_pequeno.pk  %}" class="ui button" > Editar </a> </td>
+                <td><a href="{% url 'secretariaapp:lider_grupo_pequenoDelete' lider_grupo_pequeno.pk  %}" class="ui red button"  > Remover </a> </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <a href="{% url 'secretariaapp:lider_do_grupo_pequeno' grupo_pequeno.pk %}" class="ui button yellow" > Novo Lider do Grupo Pequeno(PG) </a>
+        <p></p>
+
+
+
+
+
+        <h3>Membros do Grupo Pequeno: </h3>
+        <table  class="ui celled table" >
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th colspan="2"> Opções</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for membro in membros  %}
+              <tr>
+                <td>{{  membro.nome_completo }}</td>
+                <td><a href="{% url 'secretariaapp:membro_especifico_no_grupo_pequenoNew' membro.pk  %}" class="ui button" > Editar </a></td>
+                <td><a href="{% url 'secretariaapp:remover_membro_pg' membro.pk grupo_pequeno.pk  %}" class="ui red button"  > Remover Membro do Grupo Pequeno (PG) </a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <a href="{% url 'secretariaapp:membro_grupo_pequeno_especificoNew' grupo_pequeno.pk %}" class="ui button olive" > Novo Membro No Grupo Pequeno (PG) </a>
+
+
+
+
+
+
+
+        <div class="">
+          <h1></h1>
+          <a href="{% url 'secretariaapp:grupo_pequenoUpdate' grupo_pequeno.pk  %}" class="ui button" > Editar </a>
+          <a href="{% url 'secretariaapp:grupo_pequenoDelete' grupo_pequeno.pk  %}" class="ui red button"  > Deletar</a>
+        </div>
+
+
+
+</div>
+{% include 'rodape.html' %}

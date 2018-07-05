@@ -1,0 +1,46 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app">
+
+<h2>Ministérios</h2>
+
+<table class="ui celled table" >
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Descrição</th>
+      <th>Áreas de Atuação</th>
+      <th>Observações</th>
+      <th colspan="4"> Opções</th>
+    </tr>
+  </thead>
+
+<a href="{% url 'secretariaapp:ministerioNew'%}" class="ui button positive" > Novo ministerio </a>
+
+<a href="{% url 'secretariaapp:lider_ministerioNew'%}" class="ui button yellow" > Novo Lider de Ministério </a>
+
+<a href="{% url 'secretariaapp:Obreiro_MinisterioCreate'%}" class="ui button olive" > Novo Obreiro em Ministério </a>
+
+
+  <tbody>
+    {% for ministerio in ministerios  %}
+      <tr>
+        <td>{{  ministerio.nome }}</td>
+        <td>{{  ministerio.descricao }}</td>
+        <td>{{  ministerio.areas_atuacao }}</td>
+        <td>{{  ministerio.obs }}</td>
+
+
+        <td> <a href="{% url 'secretariaapp:ministerioUpdate' ministerio.pk  %}" class="ui button" > Editar </a> </td>
+        <td> <a href="{% url 'secretariaapp:ministerioDelete' ministerio.pk  %}" class="ui red button"  > Deletar </a> </td>
+        <td> <a href="{% url 'secretariaapp:ministerioDetalhes' ministerio.pk  %}" class="ui blue button" > Ver </a> </td>
+
+
+
+
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+{% include 'rodape.html' %}

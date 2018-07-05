@@ -1,0 +1,50 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app">
+
+<h2>Novo Obreiro no Ministério </h2>
+
+
+
+<form class="ui form" action="" method="post">{% csrf_token %}
+
+  {% if erro %}
+  <div class="ui negative message">
+    <ul class="list">
+      <b>
+        {{ erro }}
+      </b>
+    </ul>
+  </div>
+  {% endif %}
+
+
+<div class="field">
+  <label>Ministério</label>
+  {{ministerio.nome}}
+</div>
+<p></p>
+
+<div class="field">
+    <label><label for="id_membro">Obreiro:</label></label>
+      <select name="membro" id="id_membro" required>
+        <option value="" selected>Selecione o Obreiro do Ministério</option>
+        {% for membro in membros  %}
+          <option value="{{membro.pk}}">{{membro.nome_completo}}</option>
+        {% endfor %}
+
+      </select>
+</div>
+<p></p>
+
+
+<p>
+  <label for="id_obs">Observacoes:</label>
+  <input type="text" name="obs" id="id_obs" maxlength="100" />
+</p>
+
+    <input type="submit" value="Salvar" class="ui button positive" />
+    <a href="javascript:window.history.go(-1)" class="ui button" >Cancelar</a>
+</form>
+
+</div>
+{% include 'rodape.html' %}

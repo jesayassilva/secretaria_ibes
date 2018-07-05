@@ -1,0 +1,83 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app">
+
+<h2>Membros</h2>
+
+
+<form class="ui form" action="" method="post">{% csrf_token %}
+
+<div class="field">
+    <label><label for="id_situacao">Situação:</label></label>
+      <select name="situacao" id="id_situacao" required>
+        <option value="{{situacao_ativo.pk}}" selected >{{situacao_ativo.situacao}}</option>
+        <option value="0">TODOS</option>
+        {% for todas_situacao in todas_situacao  %}
+          <option value="{{todas_situacao.pk}}">{{todas_situacao.situacao}}</option>
+        {% endfor %}
+
+      </select>
+</div>
+
+<div class="field">
+<p>
+  <label for="id_nome">Nome:</label>
+  <input type="text" placeholder="Nome do Membro" name="nome_completo" id="id_nome" maxlength="100" />
+</p>
+</div>
+
+<input type="submit" value="Pesquisar" class="ui button black" />
+</form>
+
+<p></p>
+
+
+<p>Total de Resultados da Pesquisa: {{qtd}}</p>
+<table class="ui celled striped table" >
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Situacão</th>
+      <th>Data de Nascimento</th>
+      <th>Sexo</th>
+      <th>Naturalidade</th>
+      <th>Celular</th>
+      <th>Data Conversão</th>
+      <th>Grupo Pequeno</th>
+      <th colspan="4"> Opções</th>
+    </tr>
+  </thead>
+
+<a href="{% url 'secretariaapp:membroNew'%}" class="ui button positive" > Novo Membro </a>
+
+  <tbody>
+    {% for membro in membros  %}
+      <tr>
+        <td>{{  membro.nome_completo }}</td>
+        <td>{{  membro.situacao }}</td>
+        <td>{%if membro.data_nascimento is not None %}
+          {{membro.data_nascimento}}
+          {% endif %}
+        </td>
+        <td>{{  membro.sexo }}</td>
+        <td>{{  membro.naturalidade }}</td>
+        <td>{{  membro.telefone_celular }}</td>
+        <td>{%if membro.data_conversao is not None %}
+          {{membro.data_conversao}}
+          {% endif %}
+        </td>
+        <td>{% if membro.grupo_pequeno is not None %}   {{membro.grupo_pequeno}}   {% endif %}</td>
+
+        <td> <a href="{% url 'secretariaapp:membroUpdate' membro.pk  %}" class="ui button" > Editar </a> </td>
+        <td> <a href="{% url 'secretariaapp:membroDelete' membro.pk  %}" class="ui red button"  > Deletar </a> </td>
+        <td> <a href="{% url 'secretariaapp:membroDetalhes' membro.pk  %}" class="ui blue button" > Ver </a> </td>
+
+
+
+
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+{% include 'rodape.html' %}

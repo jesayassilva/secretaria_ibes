@@ -1,0 +1,28 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app">
+
+<h2>Turma</h2>
+
+<table class="ui celled table" >
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>descrição</th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td>{{  turma.nome }}</td>
+        <td>{{  turma.descricao }}</td>
+      </tr>
+  </tbody>
+</table>
+<a href="{% url 'egressapp:turmaDelete' turma.pk  %}" class="ui red button" > Deletar </a>
+<a href="{% url 'egressapp:turmaUpdate' turma.pk  %}" class="ui button" > Editar </a>
+<a href="javascript:window.history.go(-1)" class="ui secondary button" >Voltar</a>
+<a href="{% url 'egressapp:autorizacaoTurmaEspecificaNew' turma.pk %}" class="ui button positive" > Autorizar Saída </a>
+
+
+</div>
+{% include 'rodape.html' %}

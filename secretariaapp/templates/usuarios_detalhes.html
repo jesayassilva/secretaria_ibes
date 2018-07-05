@@ -1,0 +1,28 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app">
+
+<h2>Usuarios</h2>
+
+<table class="ui celled table" >
+  <thead>
+    <tr>
+      <th>Nome de acesso</th>
+    </tr>
+  </thead>
+
+<a href="{% url 'egressapp:userNew'%}" class="ui button positive" > Novo user </a>
+
+  <tbody>
+
+      <tr>
+        <td>{{  user.username }}</td>
+      </tr>
+  </tbody>
+</table>
+<td> <a href="{% url 'egressapp:userUpdate' user.pk  %}" class="ui button" > Editar </a> </td>
+<td> <a href="{% url 'egressapp:userDelete' user.pk  %}" class="ui red button"  > Deletar </a> </td>
+<td> <a href="{% url 'egressapp:perfilAlternativa' user.pk  %}" class="ui button" > Editar Permições</a> </td>
+
+
+</div>
+{% include 'rodape.html' %}

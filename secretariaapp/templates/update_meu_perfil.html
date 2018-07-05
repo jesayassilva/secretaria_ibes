@@ -1,0 +1,43 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app" >
+
+
+<h2>Alterar meu Perfil</h2>
+
+{% if erro %}
+<div class="ui negative message">
+  <ul class="list">
+    <b>
+      {{ erro }}
+    </b>
+  </ul>
+</div>
+{% endif %}
+
+
+<form class="ui form" action="" method="post">{% csrf_token %}
+
+<p></p>
+<div class=" field">
+  <h3 >Nome do Usuario: {{perfil.user.username}}</h3>
+</div>
+<h3></h3>
+
+<div class=" field">
+<h3 >Nome Completo: </h3>
+<input type="text" name="nome_completo" value="{{perfil.nome_completo}}" maxlength="100" id="id_nome_completo" />
+</div>
+
+<div class=" field">
+<h3>Email: </h3>
+<input type="email" name="email" value="{{perfil.email}}" maxlength="254" id="id_email" />
+</div>
+<p></p>
+
+<input type="submit" value="Salvar" class="ui button positive" />
+<a href="javascript:window.history.go(-1)" class="ui button" >Cancelar</a>
+</form>
+
+
+</div>
+{% include 'rodape.html' %}

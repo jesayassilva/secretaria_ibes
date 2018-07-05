@@ -1,0 +1,13 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app">
+
+
+<form action="" class="ui text container" style="text-align: center;margin-top: 2em;" method="post">{% csrf_token %}
+    <h2>Tem certeza que Deseja Excluir "{{ object }}"?</h2>
+    <h3>Todos os dados dependentes de "{{ object }}" serão excluidos! </h3>
+    <button type="submit" class="ui red button"   >Confirmar</button>
+    <a href="javascript:window.history.go(-1)" class="ui button" >Cancelar</a>
+</form>
+
+</div>
+{% include 'rodape.html' %}

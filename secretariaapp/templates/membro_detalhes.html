@@ -1,0 +1,334 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app">
+        <h1>Dados do Membros</h1>
+        <h3>Dados Pessoais</h3>
+        <div class="field">
+          <label>Nome: </label>
+          {{membro.nome_completo}}
+        </div>
+
+        <div class="field">
+          <label>Situação: </label>
+          {{membro.situacao}}
+        </div>
+
+        <div class="field">
+          <label>Data de Situação (Ex: Data da Disciplina ou Transferência): </label>
+          {% if membro.data_situacao is not None %}
+            {{membro.data_situacao}}
+          {% endif %}
+        </div>
+
+        <div class="field">
+          <label>Sexo: </label>
+          {{membro.sexo}}
+        </div>
+
+        <div class="field">
+          <label>Data de nascimento: </label>
+          {% if membro.data_nascimento is not None %}
+          {{membro.data_nascimento}}
+          {% endif %}
+        </div>
+
+        <div class="field">
+          <label>Naturalidade: </label>
+          {{membro.naturalidade}}
+        </div>
+
+        <div class="field">
+          <label>UF de nascimento: </label>
+          {% if membro.uf_nascimento is not None %}
+            {{membro.uf_nascimento}}
+          {% endif %}
+        </div>
+
+        <div class="field">
+          <label>CPF: </label>
+          {{membro.cpf}}
+        </div>
+
+        <div class="field">
+          <label>RG: </label>
+          {{membro.rg}}
+        </div>
+
+        <div class="field">
+          <label>Endereço: </label>
+          {{membro.endereco}}
+        </div>
+
+        <div class="field">
+          <label>Nº: </label>
+          {{membro.n}}
+        </div>
+
+        <div class="field">
+          <label>Bairro: </label>
+          {{membro.bairro}}
+        </div>
+
+        <div class="field">
+          <label>Cidade: </label>
+          {{membro.cidade}}
+        </div>
+
+        <div class="field">
+          <label>UF Endereco: </label>
+          {{membro.uf_endereco}}
+        </div>
+
+        <div class="field">
+          <label>CEP: </label>
+          {{membro.cep}}
+        </div>
+
+        <div class="field">
+          <label>Telefone Celular: </label>
+          {{membro.telefone_celular}}
+        </div>
+
+        <div class="field">
+          <label>Telefone Residencial: </label>
+          {{membro.telefone_residencial}}
+        </div>
+
+        <div class="field">
+          <label>Telefone Comercial: </label>
+          {{membro.telefone_comercial}}
+        </div>
+
+        <div class="field">
+          <label>Email: </label>
+          {{membro.email}}
+        </div>
+
+        <div class="field">
+          <label>Nome do Responsavel (Caso de Menor): </label>
+          {{membro.nome_responsavel}}
+        </div>
+
+
+        <div class="field">
+          <label>Estado Civil: </label>
+          {{membro.estado_civil}}
+        </div>
+
+        <div class="field">
+          <label>Nome conjuge: </label>
+          {{membro.nome_conjuge}}
+        </div>
+
+        <div class="field">
+          <label>Data de Casascimento: </label>
+          {% if membro.data_casascimento is not None %}
+            {{membro.data_casascimento}}
+          {% endif %}
+        </div>
+
+        <div class="field">
+          <label>Numero Filhos: </label>
+          {{membro.numero_filhos}}
+        </div>
+
+        <div class="field">
+          <label>Filho 1: </label>
+          {{membro.filho1}}
+        </div>
+
+        <div class="field">
+          <label>Data de Nascimento do Filho 1: </label>
+          {% if membro.data_nascimento_filho1 is not None %}
+            {{membro.data_nascimento_filho1}}
+          {% endif %}
+        </div>
+
+        <div class="field">
+          <label>Filho 2: </label>
+          {{membro.filho2}}
+        </div>
+
+        <div class="field">
+          <label>Data de Nascimento do Filho 2: </label>
+          {% if membro.data_nascimento_filho2 is not None %}
+            {{membro.data_nascimento_filho2}}
+          {% endif %}
+        </div>
+
+        <div class="field">
+          <label>Filho 3: </label>
+          {{membro.filho3}}
+        </div>
+
+        <div class="field">
+          <label>Data de Nascimento do Filho 3: </label>
+          {% if membro.data_nascimento_filho3 is not None %}
+            {{membro.data_nascimento_filho3}}
+          {% endif %}
+        </div>
+
+        <div class="field">
+          <label>Outros Filhos: </label>
+          {{membro.outros_filhos}}
+        </div>
+
+
+
+        <h3>Dados Escolares e Profissionais</h3>
+
+        <div class="field">
+          <label>Escolaridade: </label>
+          {{membro.escolaridade}}
+        </div>
+
+        <div class="field">
+          <label>Profisão: </label>
+          {{membro.profisao}}
+        </div>
+
+        <div class="field">
+          <label>Economicamente Ativo: </label>
+        {% if membro.economicamente_ativo %}
+            Sim
+        {% else  %}
+            Não
+        {% endif  %}
+        </div>
+
+
+
+
+        <h3>Dados Ministeriais</h3>
+
+
+        <div class="field">
+          <label>Data de Conversao: </label>
+          {% if membro.data_conversao is not None %}
+            {{membro.data_conversao}}
+          {% endif %}
+        </div>
+
+        <div class="field">
+          <label>Data de Batismo: </label>
+          {% if membro.data_batismo is not None %}
+            {{membro.data_batismo}}
+          {% endif %}
+
+        </div>
+
+        <div class="field">
+          <label>Igreja de Batismo: </label>
+          {{membro.igreja_batismo}}
+        </div>
+
+        <div class="field">
+          <label>Pastor:</label>
+          {{membro.pastor}}
+        </div>
+
+        <div class="field">
+          <label>Data de Chegada na El shaday: </label>
+          {% if membro.data_chegada_na_elshaday is not None %}
+            {{membro.data_chegada_na_elshaday}}
+          {% endif %}
+
+        </div>
+
+        <div class="field">
+          <label>Origem: </label>
+          {% if membro.origem is not None %}
+            {{membro.origem}}
+          {% endif %}
+        </div>
+
+        <div class="field">
+          <label>Ministerios que deseja participar: </label>
+          {{membro.ministerios_que_deseja_participar}}
+        </div>
+
+        <div class="field">
+          <label>Participa de grupo pequeno: </label>
+        {% if membro.participa_grupo_pequeno %}
+            Sim
+        {% else  %}
+            Não
+        {% endif  %}
+        </div>
+
+        <div class="field">
+          <label>Grupo Pequeno (PG): </label>
+          {% if membro.grupo_pequeno is not None %}
+            {{membro.grupo_pequeno}}
+          {% endif %}
+        </div>
+
+        <h3>Ministérios que Lidera: </h3>
+
+
+        <table  class="ui celled table" >
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Observações</th>
+              <th colspan="2"> Opções</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for lider_Ministerio in lider_Ministerios  %}
+              <tr>
+                <td>{{  lider_Ministerio.ministerio }}</td>
+                <td>{{  lider_Ministerio.obs }}</td>
+                <td><a href="{% url 'secretariaapp:lider_ministerioUpdate' lider_Ministerio.pk  %}" class="ui button" > Editar </a></td>
+                <td><a href="{% url 'secretariaapp:lider_ministerioDelete' lider_Ministerio.pk  %}" class="ui red button"  > Remover </a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <a href="{% url 'secretariaapp:lider_ministerio_especificoNew' membro.pk %}" class="ui button yellow" > Adicionar Ministério que Lidera </a>
+
+
+
+
+
+
+        <h3>Ministérios que Serve: </h3>
+        <table  class="ui celled table" >
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Observações</th>
+              <th colspan="2"> Opções</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for obreiro_Ministerio in obreiro_Ministerios  %}
+              <tr>
+                <td>{{  obreiro_Ministerio.ministerio }}</td>
+                <td>{{  obreiro_Ministerio.obs }}</td>
+                <td><a href="{% url 'secretariaapp:obreiro_ministerioUpdate' obreiro_Ministerio.pk  %}" class="ui button" > Editar </a></td>
+                <td><a href="{% url 'secretariaapp:obreiro_ministerioDelete' obreiro_Ministerio.pk  %}" class="ui red button"  > Remover </a></td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <a href="{% url 'secretariaapp:obreiro_ministerioNew' membro.pk %}" class="ui button olive" > Adicionar Ministério que Serve </a>
+
+
+        <h3>Outras Informações</h3>
+
+        <div class="field">
+          <label>Observações: </label>
+          {{membro.obs}}
+        </div>
+
+
+
+        <p></p>
+        <p></p>
+
+        <a href="{% url 'secretariaapp:membroUpdate' membro.pk  %}" class="ui button" > Editar </a>
+        <a href="{% url 'secretariaapp:membroDelete' membro.pk  %}" class="ui red button"  > Deletar </a>
+
+
+</div>
+{% include 'rodape.html' %}

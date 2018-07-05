@@ -1,0 +1,31 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app">
+
+<h2>Usuarios</h2>
+
+<table class="ui celled table" >
+  <thead>
+    <tr>
+      <th>Nome de acesso</th>
+      <th colspan="4"> Opções</th>
+    </tr>
+  </thead>
+
+<a href="{% url 'secretariaapp:userNew'%}" class="ui button positive" > Novo user </a>
+
+  <tbody>
+    {% for user in user  %}
+      <tr>
+        <td>{{  user.username }}</td>
+        <td> <a href="{% url 'secretariaapp:userUpdate' user.pk  %}" class="ui button" > Editar </a> </td>
+        <td> <a href="{% url 'secretariaapp:userDelete' user.pk  %}" class="ui red button"  > Deletar </a> </td>
+        <td> <a href="{% url 'secretariaapp:userDetalhes' user.pk  %}" class="ui blue button" > Visualizar </a> </td>
+
+
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+{% include 'rodape.html' %}

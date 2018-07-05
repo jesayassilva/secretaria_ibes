@@ -1,0 +1,18 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app">
+
+
+  <div class="ui negative message">
+    <i class="close icon"></i>
+    <div class="header">
+      <h3>O usuario {{usuario.username}} não tem permissão para acessar esta pagina!</h3>
+
+    </div>
+      <p></p>
+      <p>Contate o Administrador do sistema para solicitar acesso.</p>
+    </div>
+
+    <a href="javascript:window.history.go(-1)" class="ui negative button" >Voltar</a>
+
+</div>
+{% include 'rodape.html' %}

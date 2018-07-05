@@ -1,0 +1,67 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app" >
+
+
+<h2>Alterar meu Usuario e Senha</h2>
+
+{% if erro %}
+<div class="ui negative message">
+  <ul class="list">
+    <b>
+      <p>{{ erro }}</p>
+
+    </b>
+  </ul>
+</div>
+{% endif %}
+
+
+<form class="ui form" action="" method="post">{% csrf_token %}
+
+
+<div class=" field">
+  <label><label for="id_username">Usuário:</label></label>
+  <p></p>
+  <input type="text" name="username" value="{{user.username}}" maxlength="150" required id="id_username" autofocus />
+</div>
+Obrigatório. 150 caracteres ou menos. Letras, números e @/./+/-/_ apenas.
+<p></p>
+
+<div class=" field">
+  <label><label for="id_password">Senha Atual:</label></label>
+  <p></p>
+  <input type="password" name="password" required id="id_password" />
+</div>
+<h4></h4>
+
+<div class=" field">
+  <label><label for="id_password1">Nova Senha:</label></label>
+  <p></p>
+  <input type="password" name="password1" required id="id_password1" />
+</div>
+<p></p>
+
+<ul>
+  <li>Sua senha não pode ser tão parecida com suas outras informações pessoais.</li>
+  <li>Sua senha precisa conter pelo menos 8 caracteres.</li>
+  <li>Sua senha não pode ser uma senha habitualmente utilizada.</li>
+  <li>Sua senha não pode ser inteiramente numérica.</li>
+</ul>
+
+<div class=" field">
+  <label><label for="id_password2">Confirmação da nova senha:</label></label>
+  <p></p>
+  <input type="password" name="password2" required id="id_password2" />
+</div>
+Informe a mesma senha informada anteriormente, para verificação.
+<p></p>
+
+
+
+<input type="submit" value="Salvar" class="ui button positive" />
+<a href="javascript:window.history.go(-1)" class="ui button" >Cancelar</a>
+</form>
+
+
+</div>
+{% include 'rodape.html' %}

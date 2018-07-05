@@ -1,0 +1,274 @@
+{% if dados.isImprimir %}
+
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Standard Meta -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>IBES</title>
+  <script src="{%  static 'app/js/jquery.js' %}"></script>
+  <script src="{%  static 'app/semantic/semantic.min.js' %}" ></script>
+  <link rel="stylesheet" type="text/css" href="{%  static 'app/semantic/semantic.min.css' %}" />
+  <script src="{% static 'app/js/angular.min.js' %}"></script>
+  <script src="{% static 'app/js/ngStorage.js' %} "></script>
+  <link rel="stylesheet" type="text/css" href="{%  static 'app/css/estilo.css' %}"/>
+  <link rel="stylesheet" href="{%  static 'css/index.css' %}"/>
+</head>
+<body ng-app="myApp" ng-controller="appCtrl">
+
+  <style type="text/css">
+
+  .imprimir_relatorio{
+    margin-top: 2%;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 5%;
+    font-size: 16px;
+    text-align: justify;
+  }
+
+  .ajustar_imagem_imprimir{
+    height: 70px;
+    width: 70px;
+    margin-left: 10%;
+    margin-right: 7%;
+
+  }
+
+  .ajustar_texto{
+    float: left;
+
+  }
+
+  .ajustar_texto_altura{
+    margin-bottom: 8%;
+    margin-right: 10%;
+    margin-top: 3%;
+    font-size: 40px;
+
+  }
+
+    </style>
+
+    <script>
+		var app = angular.module('myApp', ['ngStorage']);
+		app.controller('appCtrl',function($scope, $http) {
+		$scope.moastar_msg =  function(){
+				alert('Utilize "Ctrl + P" para Imprimir');
+		};
+
+			//$scope.moastar_msg();
+      window.print();
+		});
+
+		</script>
+
+
+
+  <img src="{%  static 'imagens/ibes.png' %}" class="ui image ajustar_imagem_imprimir ajustar_texto">
+  <h1 class="ajustar_texto_altura" > Igreja Batista El Shaday</h1>
+
+
+
+<div class="imprimir_relatorio">
+
+{% else%}
+
+{% include 'cabecalho.html' %}
+<div class="corpo_app">
+
+{% endif%}
+
+
+
+    <h1>Relatórios</h1>
+
+    <div class="field">
+      <label>Total de Membros Ativo:</label>
+      {{dados.membros_ativo}}
+    </div>
+
+
+    <div class="field">
+      <label>Total de Ministérios:</label>
+      {{dados.ministerios}}
+    </div>
+
+
+    <div class="field">
+      <label>Total de Grupos Pequenos (GP):</label>
+      {{dados.grupos_pequenos}}
+    </div>
+
+
+    <div class="field">
+      <label>Membros Ativos quem Participam em Ministérios:</label>
+      {{dados.membros_ativo_participacao_ministerio}}
+    </div>
+
+
+    <div class="field">
+      <label>Membros Ativos que não Participam de Nenhum Ministério:</label>
+      {{dados.membros_ativo_sem_participacao_ministerio}}
+    </div>
+
+
+    <div class="field">
+      <label>Porcentagem Membros Ativos que não Participam de Nenhum Ministério:</label>
+      {{dados.porcentagem_membros_ativo_sem_participacao_ministerio}}%
+    </div>
+
+
+    <div class="field">
+      <label>Membros Ativos com Participação na Liderança:</label>
+      {{dados.membros_ativo_participacao_lideranca}}
+    </div>
+
+
+    <div class="field">
+      <label>Porcentagem Membros Ativos com Participação na Liderança:</label>
+      {{dados.porcentagem_membros_ativo_participacao_lideranca}}%
+    </div>
+
+
+      <h3>Faixa Etária dos membros ativos da El Shaday</h3>
+      <table class="ui celled table" >
+        <thead>
+          <tr>
+            <th>Até 8 Anos</th>
+            <th>9 - 14 Anos</th>
+            <th>15 - 30 Anos</th>
+            <th>31 - 50 Anos</th>
+            <th>51 - 75 Anos</th>
+            <th>Acima de 76 Anos</th>
+            <th>Não Informado</th>
+          </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+              <td>{{dados.membros_ativo_8idade}}</td>
+              <td>{{dados.membros_ativo_14idade}}</td>
+              <td>{{dados.membros_ativo_30idade}}</td>
+              <td>{{dados.membros_ativo_50idade}}</td>
+              <td>{{dados.membros_ativo_75idade}}</td>
+              <td>{{dados.membros_ativo_110idade}}</td>
+              <td>{{dados.membros_ativo_idade_nao_informada}}</td>
+            </tr>
+        </tbody>
+      </table>
+
+
+
+
+
+    <h3>Total de Membros que chegaram na El Shaday a:</h3>
+    <table class="ui celled table" >
+      <thead>
+        <tr>
+          <th>30 Dias</th>
+          <th>2 Meses</th>
+          <th>4 Meses</th>
+          <th>6 Meses</th>
+          <th>1 Ano</th>
+          <th>2 Anos</th>
+          <th>4 Anos</th>
+          <th>8 Anos</th>
+          <th>15 Anos</th>
+          <th>30 Anos</th>
+          <th>Não Informado</th>
+        </tr>
+      </thead>
+
+      <tbody>
+          <tr>
+            <td>{{dados.membros_chegada_1mes}}</td>
+            <td>{{dados.membros_chegada_2mes}}</td>
+            <td>{{dados.membros_chegada_4mes}}</td>
+            <td>{{dados.membros_chegada_6mes}}</td>
+            <td>{{dados.membros_chegada_1ano}}</td>
+            <td>{{dados.membros_chegada_2ano}}</td>
+            <td>{{dados.membros_chegada_4ano}}</td>
+            <td>{{dados.membros_chegada_8ano}}</td>
+            <td>{{dados.membros_chegada_15ano}}</td>
+            <td>{{dados.membros_chegada_30ano}}</td>
+            <td>{{dados.membros_chegada_nao_informada}}</td>
+          </tr>
+      </tbody>
+    </table>
+
+    <div class="field">
+      <label>Total de Membros Disciplinados:</label>
+      {{dados.membros_disciplinado}}
+    </div>
+
+
+    <h3>Total de Membros com Situação de Disciplinado a: </h3>
+    <table class="ui celled table" >
+      <thead>
+        <tr>
+          <th>2 Meses</th>
+          <th>4 Meses</th>
+          <th>6 Meses</th>
+          <th>1 Ano</th>
+          <th>2 Anos</th>
+          <th>4 Anos</th>
+          <th>8 Anos</th>
+          <th>Não Informado</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+          <tr>
+            <td>{{dados.membros_disciplinado_2mes}}</td>
+            <td>{{dados.membros_disciplinado_4mes}}</td>
+            <td>{{dados.membros_disciplinado_6mes}}</td>
+            <td>{{dados.membros_disciplinado_1ano}}</td>
+            <td>{{dados.membros_disciplinado_2ano}}</td>
+            <td>{{dados.membros_disciplinado_4ano}}</td>
+            <td>{{dados.membros_disciplinado_8ano}}</td>
+            <td>{{dados.membros_disciplinado_nao_informada}}</td>
+
+          </tr>
+      </tbody>
+    </table>
+
+
+
+{% if not dados.isImprimir %}
+<a href="{% url 'secretariaapp:relatorios' "imprimir" %}" class="ui button blue" target="_blank'" >  <i class="print icon"></i> Imprimir</a>
+<a href="javascript:window.history.go(-1)" class="ui negative button" >Voltar</a>
+</div>
+{% include 'rodape.html' %}
+
+{% else%}
+</div>
+
+<div class="ui vertical footer">
+<!--<div class="ui inverted vertical footer segment green">-->
+  <div class="ui center aligned container">
+    <!--
+      <img src="{%  static 'imagens/ibes.png' %}" class="ui centered image circular ajustar_imagem_embaixo">
+
+      <p></p>-->
+      <div class="seven wide column">
+        <!-- 
+        <p>Amando você em amor a Deus.</p>-->
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
+
+
+
+
+
+{% endif%}

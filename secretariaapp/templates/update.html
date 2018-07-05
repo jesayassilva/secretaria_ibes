@@ -1,0 +1,25 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app" >
+
+<h2>Atualizar Dados</h2>
+
+
+<form class="ui form" action="" method="post" enctype="multipart/form-data" >{% csrf_token %}
+{% for field in form %}
+ {{ field.errors }}
+<div class=" field">
+  <label>{{ field.label_tag }}</label>
+  <p></p>
+  {{ field }}
+</div>
+<p></p>
+
+{% endfor %}
+    <button class="ui button positive" type="submit">Salvar</button>
+    <a href="javascript:window.history.go(-1)" class="ui button" >Cancelar</a>
+</form>
+
+
+
+</div>
+{% include 'rodape.html' %}

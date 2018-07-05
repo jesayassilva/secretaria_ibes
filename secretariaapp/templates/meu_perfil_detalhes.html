@@ -1,0 +1,80 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app">
+
+<h2>Meu Perfil</h2>
+<!--
+-->
+
+<h3>Nome do Usuario: {{perfil.user}}</h3>
+
+{% if perfil.nome_completo is not None %}
+    <h3>Nome Completo: {{perfil.nome_completo}}</h3>
+{% else  %}
+    <h3>Nome Completo:</h3>
+{% endif  %}
+
+
+{% if perfil.email is not None %}
+  <h3>Email: {{perfil.email}}</h3>
+{% else  %}
+    <h3>Email:</h3>
+{% endif  %}
+
+
+<p></p>
+
+
+
+<table class="ui celled table" >
+  <thead>
+    <tr>
+      <th>Gerenciar Membros</th>
+      <th>Gerenciar Grupos Pequenos</th>
+      <th>Gerenciar Ministérios</th>
+      <th>Relatórios </th>
+      <th>Gerenciar Usuarios </th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        {% if perfil.gerenciar_Membros  %}
+            <td class="positive">Sim</td>
+        {% else  %}
+            <td class="negative">Não</td>
+        {% endif  %}
+
+        {% if perfil.gerenciar_Grupos_Pequenos  %}
+            <td class="positive">Sim</td>
+        {% else  %}
+            <td class="negative">Não</td>
+        {% endif  %}
+
+        {% if perfil.gerenciar_Ministerios  %}
+            <td class="positive">Sim</td>
+        {% else  %}
+            <td class="negative">Não</td>
+        {% endif  %}
+
+        {% if perfil.gerenciar_Relatorios  %}
+            <td class="positive">Sim</td>
+        {% else  %}
+            <td class="negative">Não</td>
+        {% endif  %}
+
+        {% if perfil.gerenciar_Usuarios  %}
+            <td class="positive">Sim</td>
+        {% else  %}
+            <td class="negative">Não</td>
+        {% endif  %}
+
+      </tr>
+  </tbody>
+</table>
+
+<a href="{% url 'secretariaapp:meu_perfilUpdate'   %}" class="ui button" > Editar Perfil </a>
+<a href="{% url 'secretariaapp:meu_perfil' %}" class="ui button" > Editar meu Usuario </a>
+
+</div>
+{% include 'rodape.html' %}

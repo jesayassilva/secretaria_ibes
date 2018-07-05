@@ -1,0 +1,44 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app">
+
+<h2>Atualizar Membro em Grupo Pequeno </h2>
+
+
+
+<form class="ui form" action="" method="post">{% csrf_token %}
+
+  {% if erro %}
+  <div class="ui negative message">
+    <ul class="list">
+      <b>
+        {{ erro }}
+      </b>
+    </ul>
+  </div>
+  {% endif %}
+
+
+<div class="field">
+    <h4>Membro: {{membro.nome_completo}}</h4>
+</div>
+<p></p>
+
+<div class="field">
+    <label><label for="id_grupo_pequeno">Grupo Pequeno:</label></label>
+      <select name="grupo_pequeno" id="id_grupo_pequeno" required>
+        <option value="" selected>Selecione o Grupo Pequeno</option>
+        {% for grupo_pequeno in grupos_pequenos  %}
+          <option value="{{grupo_pequeno.pk}}">{{grupo_pequeno.nome}}</option>
+        {% endfor %}
+
+      </select>
+</div>
+<p></p>
+
+
+    <input type="submit" value="Salvar" class="ui button positive" />
+    <a href="javascript:window.history.go(-1)" class="ui button" >Cancelar</a>
+</form>
+
+</div>
+{% include 'rodape.html' %}
