@@ -21,6 +21,7 @@ handler404 = 'secretariaapp.views.erro404'
 handler500 = 'secretariaapp.views.erro500'
 
 urlpatterns = [
+
     path('admin/', admin.site.urls),
     url(r'^', include('secretariaapp.urls')),#incluir rotas do app
 ]

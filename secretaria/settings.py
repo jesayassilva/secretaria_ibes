@@ -26,8 +26,10 @@ SECRET_KEY = 's8$^*a)1b5h#xynz)w%!wh5$pc$ou5kyfv(r!5s@9=0a4@#0e#'
 #DEBUG = True
 DEBUG = False
 
+
 ADMINS = [('Jesaias Silva', 'jesayassilva@gmail.com')]
 ALLOWED_HOSTS = ["*"]
+
 
 
 # Application definition
@@ -57,7 +59,7 @@ ROOT_URLCONF = 'secretaria.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['secretariaapp/templates',],
+        'DIRS': ['secretariaapp/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,7 +77,7 @@ WSGI_APPLICATION = 'secretaria.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
-'''
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -94,7 +96,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
+'''
 
 
 # Password validation
@@ -146,8 +148,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 #STATIC_ROOT = '/static/'
 #STATIC_URL = '/static/'
 
-STATIC_ROOT = 'https://jesaias.000webhostapp.com/static/IBES/'
-STATIC_URL = 'https://jesaias.000webhostapp.com/static/IBES/'
+STATIC_ROOT = 'https://jesaias.000webhostapp.com/IBES/static/'
+STATIC_URL = 'https://jesaias.000webhostapp.com/IBES/static/'
 
 
 #STATIC_ROOT = 'https://multimeios.000webhostapp.com/oed2017/static/'

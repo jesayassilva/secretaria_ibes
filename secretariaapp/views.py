@@ -13,6 +13,8 @@ from django.views.generic.edit import CreateView
 from .models import *
 from django.contrib.auth import authenticate
 # Create your views here.
+import copy
+
 '''
     gerenciar_Membros = models.BooleanField(default = False)
     gerenciar_Grupos_Pequenos = models.BooleanField(default = False)
