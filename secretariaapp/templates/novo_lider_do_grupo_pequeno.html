@@ -1,7 +1,7 @@
 {% include 'cabecalho.html' %}
 <div class="corpo_app">
 
-<h2>Novo Lider do Grupo Pequeno </h2>
+<h2>Novo Líder do Grupo Pequeno </h2>
 
 
 
@@ -28,7 +28,7 @@
 <div class="field">
     <label><label for="id_membro">Lider:</label></label>
       <select name="membro" id="id_membro" required>
-        <option value="" selected>Selecione o Lider do Grupo Pequeno</option>
+        <option value="" selected>Selecione o Líder do Grupo Pequeno</option>
         {% for membro in membros  %}
           <option value="{{membro.pk}}">{{membro.nome_completo}}</option>
         {% endfor %}
@@ -39,7 +39,7 @@
 
 
 <p>
-  <label for="id_obs">Observacoes:</label>
+  <label for="id_obs">Observações:</label>
   <input type="text" name="obs" id="id_obs" maxlength="100" />
 </p>
 

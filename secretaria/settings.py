@@ -134,7 +134,7 @@ USE_TZ = True
 
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_PASSWORD = '09011996'
+EMAIL_HOST_PASSWORD = 'jesaias09011996*'
 EMAIL_HOST_USER = 'jcps.suporte@gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True

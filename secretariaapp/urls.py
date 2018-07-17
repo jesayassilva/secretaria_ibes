@@ -48,7 +48,8 @@ urlpatterns = [
 
     url(r'^membros/new/$',login_required(MembroCreate.as_view()),name='membroNew'),
     url(r'^membros/(?P<pk>[0-9]+)/$',login_required(membroDetalhes),name='membroDetalhes'),
-    url(r'^membros/$',login_required(membro),name='membros'),
+    #url(r'^membros/$',login_required(membro),name='membros'),
+    url(r'^membros/(?P<opc>[aniv]+)/$',login_required(membro),name='membros'),
     url(r'^membros/update/(?P<pk>[0-9]+)/$',login_required(MembroUpdate.as_view()),name='membroUpdate'),
     url(r'^membros/delete/(?P<pk>[0-9]+)/$',login_required(MembroDelete.as_view()), name='membroDelete'),
 

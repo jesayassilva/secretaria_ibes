@@ -429,7 +429,7 @@ class MembroCreate(CreateView):
     model = Membro
     fields = '__all__'#quais atributos(todos)
     template_name = 'novo_membro.html'
-    success_url = '/membros/'
+    success_url = '/membros/a/'
 
     def get(self, request, *args, **kwargs):
         if not self.request.user.perfil.gerenciar_Membros:
@@ -439,7 +439,7 @@ class MembroCreate(CreateView):
 class MembroUpdate(UpdateView):
     model = Membro
     fields = '__all__'#quais atributos(todos)
-    success_url = '/membros/'
+    success_url = '/membros/a/'
     template_name = 'update.html'
 
     def get(self, request, *args, **kwargs):
@@ -449,7 +449,7 @@ class MembroUpdate(UpdateView):
 
 class MembroDelete(DeleteView):
     model = Membro
-    success_url = '/membros/'
+    success_url = '/membros/a/'
     template_name = 'delete.html'
 
     def get(self, request, *args, **kwargs):
@@ -457,7 +457,7 @@ class MembroDelete(DeleteView):
             return redirect('/sempermissao')
         return super(MembroDelete, self).get(request, *args, **kwargs)
 
-def membro(request):
+def membro(request,opc):
     if not request.user.perfil.gerenciar_Membros:
         return redirect('/sempermissao')
 
@@ -478,9 +478,31 @@ def membro(request):
             membros = Membro.objects.all().order_by('nome_completo')
             qtd = membros.count
     else:
-        membros = Membro.objects.filter(situacao = situacao_ativo).order_by('nome_completo')
-        qtd = membros.count
 
+        membros = []
+        if opc != 'aniv':
+            membros = Membro.objects.filter(situacao = situacao_ativo).order_by('nome_completo')
+            qtd_aux = membros.count
+            qtd = str(qtd_aux) + "Membros Ativos)"
+        else:
+            n = 1
+            while n<=12:
+                membrosN = Membro.objects.filter(situacao = situacao_ativo, data_nascimento__month = n).order_by('data_nascimento')
+                for item in membrosN:
+                    membros.append({
+                    "pk": item.pk,
+                    "nome_completo":item.nome_completo,
+                    "situacao":item.situacao,
+                    "data_nascimento": item.data_nascimento,
+                    "sexo":item.sexo,
+                    "naturalidade":item.naturalidade,
+                    "telefone_celular": item.telefone_celular,
+                    "data_conversao":item.data_conversao,
+                    "grupo_pequeno":item.grupo_pequeno
+                    })
+                n = n +1
+                qtd = 'Aniversariantes (dos membros ativos)'
+                #Gambiara Editar depois pois se mudar nome de campo pode dar erro
     return render(request,'membros.html',{'membros':membros, 'todas_situacao':todas_situacao,'situacao_ativo':situacao_ativo, 'qtd':qtd})
 
 
@@ -723,7 +745,7 @@ def obreiro_MinisterioNew(request,pk):
         membro = Membro.objects.get(pk=pk)
         ministerios = Ministerio.objects.all().order_by('nome')
     except Exception as e:
-        return redirect('/membros/')
+        return redirect('/membros/a/')
     if  request.method == "POST":
         obs = request.POST.get("obs")
         id_ministerio = request.POST.get("ministerio")
