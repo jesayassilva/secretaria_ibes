@@ -477,13 +477,13 @@ def membro(request,opc):
         except Exception as e:
             membros = Membro.objects.all().order_by('nome_completo')
             qtd = membros.count
+
     else:
 
         membros = []
         if opc != 'aniv':
             membros = Membro.objects.filter(situacao = situacao_ativo).order_by('nome_completo')
-            qtd_aux = membros.count
-            qtd = str(qtd_aux) + "Membros Ativos)"
+            qtd = membros.count
         else:
             n = 1
             while n<=12:
