@@ -26,7 +26,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 
 ADMINS = [('Jesaias Silva', 'jesayassilva@gmail.com')]
-ALLOWED_HOSTS = ['ibes.herokuapp.com']
+ALLOWED_HOSTS = ['ibes.ml','ibes.herokuapp.com']
 
 
 
