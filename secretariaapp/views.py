@@ -486,10 +486,10 @@ def membro(request,opc):
             qtd = membros.count
         else:
             mes = 1
-            dia = 1
             while mes<=12:
+                dia = 1
                 while dia<=31:
-                    membrosN = Membro.objects.filter(situacao = situacao_ativo, data_nascimento__month = mes, data_nascimento__day = dia).order_by('nome_completo')
+                    membrosN = Membro.objects.filter(situacao = situacao_ativo, data_nascimento__month = mes, data_nascimento__day = dia)
                     for item in membrosN:
                         membros.append({
                         "pk": item.pk,
