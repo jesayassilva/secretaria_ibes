@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,15 +21,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 's8$^*a)1b5h#xynz)w%!wh5$pc$ou5kyfv(r!5s@9=0a4@#0e#'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG = False
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 
 ADMINS = [('Jesaias Silva', 'jesayassilva@gmail.com')]
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['ibes.ml','ibes.herokuapp.com']
 
 
 
@@ -92,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'd961pjj46hac46',
         'USER': 'zewzjswqfjtkat',
-        'PASSWORD': 'c3bc22bfdeb6f18555995682bb589fc205ef1308a369d24adcce768e2b5ab3f9',
+        'PASSWORD': config('PASSWORD'),
         'HOST': 'ec2-54-225-103-255.compute-1.amazonaws.com',
         'PORT': '5432',
     }
@@ -135,7 +133,7 @@ USE_TZ = True
 
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_PASSWORD = 'jesaias09011996*'
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_HOST_USER = 'jcps.suporte@gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
