@@ -485,23 +485,26 @@ def membro(request,opc):
             membros = Membro.objects.filter(situacao = situacao_ativo).order_by('nome_completo')
             qtd = membros.count
         else:
-            n = 1
-            while n<=12:
-                membrosN = Membro.objects.filter(situacao = situacao_ativo, data_nascimento__month = n).order_by('data_nascimento')
-                for item in membrosN:
-                    membros.append({
-                    "pk": item.pk,
-                    "nome_completo":item.nome_completo,
-                    "situacao":item.situacao,
-                    "data_nascimento": item.data_nascimento,
-                    "sexo":item.sexo,
-                    "naturalidade":item.naturalidade,
-                    "telefone_celular": item.telefone_celular,
-                    "data_conversao":item.data_conversao,
-                    "grupo_pequeno":item.grupo_pequeno
-                    })
-                n = n +1
-                qtd = 'Aniversariantes (dos membros ativos)'
+            mes = 1
+            dia = 1
+            while mes<=12:
+                while dia<=31:
+                    membrosN = Membro.objects.filter(situacao = situacao_ativo, data_nascimento__month = mes, data_nascimento__day = dia).order_by('nome_completo')
+                    for item in membrosN:
+                        membros.append({
+                        "pk": item.pk,
+                        "nome_completo":item.nome_completo,
+                        "situacao":item.situacao,
+                        "data_nascimento": item.data_nascimento,
+                        "sexo":item.sexo,
+                        "naturalidade":item.naturalidade,
+                        "telefone_celular": item.telefone_celular,
+                        "data_conversao":item.data_conversao,
+                        "grupo_pequeno":item.grupo_pequeno
+                        })
+                    dia = dia +1
+                mes = mes +1
+            qtd = 'Aniversariantes (dos membros ativos)'
                 #Gambiara Editar depois pois se mudar nome de campo pode dar erro
     return render(request,'membros.html',{'membros':membros, 'todas_situacao':todas_situacao,'situacao_ativo':situacao_ativo, 'qtd':qtd})
 
