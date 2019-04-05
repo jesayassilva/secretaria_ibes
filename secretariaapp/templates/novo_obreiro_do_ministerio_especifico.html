@@ -1,7 +1,7 @@
 {% include 'cabecalho.html' %}
 <div class="corpo_app">
 
-<h2>Novo Obreiro no Ministério </h2>
+<h2>Novo Obreiro no Ministério Teste</h2>
 
 
 
@@ -24,8 +24,8 @@
 </div>
 <p></p>
 
-<div class="field">
-    <label><label for="id_membro">Obreiro:</label></label>
+<div >
+    <label for="id_membro">Obreiro:</label>
       <select name="membro" id="id_membro" required>
         <option value="" selected>Selecione o Obreiro do Ministério</option>
         {% for membro in membros  %}
@@ -47,4 +47,6 @@
 </form>
 
 </div>
+
+
 {% include 'rodape.html' %}

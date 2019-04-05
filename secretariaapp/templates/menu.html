@@ -1,7 +1,7 @@
 <div class="ui simple dropdown item">
   Membros <i class="dropdown "></i>
   <div class="menu">
-    <a class="item" href="{% url 'secretariaapp:membros' "a" %}">Todos</a>
+    <a class="item" href="{% url 'secretariaapp:membros' %}">Todos</a>
     <a class="item" href="{% url 'secretariaapp:membroNew' %}">Novo</a>
   </div>
 </div>
@@ -30,7 +30,16 @@
   </div>
 </div>
 
-<a href="{% url 'secretariaapp:relatorios' "relatorios" %}" class="item">Relatórios</a>
+
+<div class="ui simple dropdown item">
+  Relatórios <i class="dropdown "></i>
+  <div class="menu">
+    <a href="{% url 'secretariaapp:relatorios' "relatorios" %}" class="item">Relatórios</a>
+    <a class="item" href="{% url 'secretariaapp:aniversariantes' %}" >Aniversariantes</a>
+  </div>
+</div>
+
+
 
 <div class="ui simple dropdown item">
   Meu Usuário <i class="dropdown "></i>

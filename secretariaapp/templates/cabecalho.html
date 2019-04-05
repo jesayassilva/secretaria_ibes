@@ -13,12 +13,36 @@
 
 
   <!-- <link rel="stylesheet" href="{%  static 'app/index.css' %}" /> -->
+<link rel="stylesheet" type="text/css" href="{%  static 'app/semantic/semantic.min.css' %}" />
   <script src="{%  static 'app/js/jquery.js' %}"></script>
   <script src="{%  static 'app/semantic/semantic.min.js' %}" ></script>
-  <link rel="stylesheet" type="text/css" href="{%  static 'app/semantic/semantic.min.css' %}" />
 
-  <script src="{% static 'app/js/angular.min.js' %}"></script>
+
+  <!-- <script src="{% static 'app/js/angular.min.js' %}"></script> da erro na pesquisa pois confunde o angular com python-->
   <script src="{% static 'app/js/ngStorage.js' %} "></script>
+
+  <script>
+  //Para pesquisa com select
+  $( document ).ready(function() {
+
+    $( "select" ).addClass("ui search dropdown");
+
+    $('.dropdown')
+    .dropdown();
+
+    $('.search')
+  .search({
+    type: 'category'
+  });
+
+
+    //console.log( "ready!" );
+  });
+
+
+
+  </script>
+
 
   {% include 'css.html' %}
 
@@ -31,7 +55,7 @@
       <div class="ui container font_menu"  >
 
         <a class="header item" href="{% url 'secretariaapp:index' %}" >
-        
+
           <img src="{%  static 'imagens/ibes.png' %}" class="ui image circular ajustar_imagem_em_cima">
           IBES
         </a>

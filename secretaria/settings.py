@@ -22,11 +22,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
-
+#DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
 
 ADMINS = [('Jesaias Silva', 'jesayassilva@gmail.com')]
-ALLOWED_HOSTS = ['ibes.ml','ibes.herokuapp.com']
+ALLOWED_HOSTS = ['ibes.ml','ibes.herokuapp.com','*']
 
 
 
@@ -83,8 +83,9 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-'''
 
+
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',

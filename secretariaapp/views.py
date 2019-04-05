@@ -168,6 +168,41 @@ def relatorios(request, imprimir):
     return render(request,'relatorios.html',{'dados':dados})
 
 
+def aniversariantes(request):
+    if not request.user.perfil.gerenciar_Membros:
+        return redirect('/sempermissao')
+
+    if forcar_user_atualizar_perfil(request) :
+        return redirect('/meu_perfil/update/')
+
+    situacao_ativo = Situacao.objects.get(situacao = 'ATIVO')
+    qtd = 0
+    dia=1
+    membros = None
+    if  request.method == "POST":
+        mes = request.POST.get("mes_aniversariantes")
+        #consertar depois
+        #membros = Membro.objects.filter(situacao = situacao_ativo, data_nascimento__month = mes).order_by('data_nascimento')
+        #return render(request,'aniversariantes.html',{'membros':membros, 'qtd':qtd})
+        membros = []
+        while dia<=31:
+            membrosN = Membro.objects.filter(situacao = situacao_ativo, data_nascimento__month = mes, data_nascimento__day = dia)
+            for item in membrosN:
+                membros.append({
+                "pk": item.pk,
+                "nome_completo":item.nome_completo,
+                "situacao":item.situacao,
+                "data_nascimento": item.data_nascimento,
+                "sexo":item.sexo,
+                "naturalidade":item.naturalidade,
+                "telefone_celular": item.telefone_celular,
+                "data_conversao":item.data_conversao,
+                "grupo_pequeno":item.grupo_pequeno
+                })
+                qtd = qtd + 1
+            dia = dia +1
+        #Gambiara Editar depois pois se mudar nome de campo pode dar erro
+    return render(request,'aniversariantes.html',{'membros':membros, 'qtd':qtd})
 
 
 
@@ -429,7 +464,7 @@ class MembroCreate(CreateView):
     model = Membro
     fields = '__all__'#quais atributos(todos)
     template_name = 'novo_membro.html'
-    success_url = '/membros/a/'
+    success_url = '/membros/'
 
     def get(self, request, *args, **kwargs):
         if not self.request.user.perfil.gerenciar_Membros:
@@ -439,7 +474,7 @@ class MembroCreate(CreateView):
 class MembroUpdate(UpdateView):
     model = Membro
     fields = '__all__'#quais atributos(todos)
-    success_url = '/membros/a/'
+    success_url = '/membros/'
     template_name = 'update.html'
 
     def get(self, request, *args, **kwargs):
@@ -449,7 +484,7 @@ class MembroUpdate(UpdateView):
 
 class MembroDelete(DeleteView):
     model = Membro
-    success_url = '/membros/a/'
+    success_url = '/membros/'
     template_name = 'delete.html'
 
     def get(self, request, *args, **kwargs):
@@ -457,7 +492,7 @@ class MembroDelete(DeleteView):
             return redirect('/sempermissao')
         return super(MembroDelete, self).get(request, *args, **kwargs)
 
-def membro(request,opc):
+def membro(request):
     if not request.user.perfil.gerenciar_Membros:
         return redirect('/sempermissao')
 
@@ -480,10 +515,12 @@ def membro(request,opc):
 
     else:
 
-        membros = []
-        if opc != 'aniv':
-            membros = Membro.objects.filter(situacao = situacao_ativo).order_by('nome_completo')
-            qtd = membros.count
+        #membros = []
+        #if opc != 'aniv':
+        membros = Membro.objects.filter(situacao = situacao_ativo).order_by('nome_completo')
+        qtd = membros.count
+
+        '''
         else:
             mes = 1
             while mes<=12:
@@ -505,7 +542,8 @@ def membro(request,opc):
                     dia = dia +1
                 mes = mes +1
             qtd = 'Aniversariantes (dos membros ativos)'
-                #Gambiara Editar depois pois se mudar nome de campo pode dar erro
+            #Gambiara Editar depois pois se mudar nome de campo pode dar erro
+        '''
     return render(request,'membros.html',{'membros':membros, 'todas_situacao':todas_situacao,'situacao_ativo':situacao_ativo, 'qtd':qtd})
 
 

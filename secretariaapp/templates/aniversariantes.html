@@ -1,0 +1,71 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app">
+
+<h2>Aniversariantes</h2>
+
+
+<form class="ui form" action="" method="post">{% csrf_token %}
+
+<div class="field">
+    <label for="id_mes">Mês:</label>
+      <select name="mes_aniversariantes" id="id_mes" required>
+        <option value="" selected >Mês</option>
+        <option value="1">Janeiro</option>
+        <option value="2">Fevereiro</option>
+        <option value="3">Março</option>
+        <option value="4">Abril</option>
+        <option value="5">Maio</option>
+        <option value="6">Junho</option>
+        <option value="7">Julho</option>
+        <option value="8">Agosto</option>
+        <option value="9">Setembro</option>
+        <option value="10">Outubro</option>
+        <option value="11">Novembro</option>
+        <option value="12">Dezembro</option>
+      </select>
+</div>
+
+<p></p>
+
+<input type="submit" value="Aniversariantes" class="ui button black" />
+</form>
+
+<p></p>
+
+
+<p>Total de Aniversariantes: {{qtd}}</p>
+<table class="ui celled striped table" >
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Data de Nascimento</th>
+      <!-- <th>Naturalidade</th> -->
+      <!-- <th>Celular</th> -->
+      <!-- <th>Data Conversão</th> -->
+      <!-- <th>Grupo Pequeno</th> -->
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for membro in membros  %}
+      <tr>
+        <td>{{  membro.nome_completo }}</td>
+        <td>{%if membro.data_nascimento is not None %}
+          {{membro.data_nascimento}}
+          {% endif %}
+        </td>
+        <!-- <td>{{  membro.naturalidade }}</td> -->
+        <!-- <td>{{  membro.telefone_celular }}</td> -->
+        <!-- <td>{%if membro.data_conversao is not None %}
+          {{membro.data_conversao}}
+          {% endif %}
+        </td> -->
+        <!-- <td>{% if membro.grupo_pequeno is not None %}   {{membro.grupo_pequeno}}   {% endif %}</td> -->
+
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+{% include 'rodape.html' %}
