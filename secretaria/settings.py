@@ -84,7 +84,7 @@ DATABASES = {
     }
 }
 '''
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -92,6 +92,18 @@ DATABASES = {
         'USER': 'zewzjswqfjtkat',
         'PASSWORD': config('PASSWORD'),
         'HOST': 'ec2-54-225-103-255.compute-1.amazonaws.com',
+        'PORT': '5432',
+    }
+}
+'''
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'secretariaibes',
+        'USER': config('USER'),
+        'PASSWORD': config('PASSWORD'),
+        'HOST': 'secretariaibes.mysql.uhserver.com',
         'PORT': '5432',
     }
 }
