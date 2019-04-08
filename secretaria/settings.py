@@ -104,7 +104,7 @@ DATABASES = {
         'USER': config('USER'),
         'PASSWORD': config('PASSWORD'),
         'HOST': 'secretariaibes.mysql.uhserver.com',
-        'PORT': '5432',
+        'PORT': '3306',
     }
 }
 
