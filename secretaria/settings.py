@@ -25,8 +25,8 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 #DEBUG = True
 
-ADMINS = [('Jesaias Silva', 'jesayassilva@gmail.com','*')]
-ALLOWED_HOSTS = ['elshaday.ml','ibes.herokuapp.com']
+ADMINS = [('Jesaias Silva', 'jesayassilva@gmail.com')]
+ALLOWED_HOSTS = ['elshaday.ml','ibes.herokuapp.com','*']
 
 
 
