@@ -26,7 +26,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 #DEBUG = True
 
 ADMINS = [('Jesaias Silva', 'jesayassilva@gmail.com')]
-ALLOWED_HOSTS = ['elshaday.ml','ibes.herokuapp.com','*']
+ALLOWED_HOSTS = ['www.elshaday.ml','elshaday.ml','ibes.herokuapp.com',]
 
 
 
@@ -113,7 +113,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'secretariaibes',
-        'USER': 'jesaias96',
+        'USER': config('USER'),
         'PASSWORD': config('PASSWORD'),
         'HOST': 'secretariaibes.postgres.uhserver.com',
         'PORT': '5432',
