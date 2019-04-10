@@ -23,10 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
-#DEBUG = True
 
 ADMINS = [('Jesaias Silva', 'jesayassilva@gmail.com')]
-ALLOWED_HOSTS = ['www.elshaday.ml','elshaday.ml','ibes.herokuapp.com']
+ALLOWED_HOSTS = ['www.elshaday.ml','ibes.herokuapp.com']
 
 
 
@@ -84,30 +83,6 @@ DATABASES = {
     }
 }
 '''
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'd961pjj46hac46',
-        'USER': 'zewzjswqfjtkat',
-        'PASSWORD': config('PASSWORD'),
-        'HOST': 'ec2-54-225-103-255.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
-'''
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'secretariaibes',
-        'USER': config('USER'),
-        'PASSWORD': config('PASSWORD'),
-        'HOST': 'secretariaibes.postgres.uhserver.com',
-        'PORT': '5432',
-    }
-}
-'''
 
 DATABASES = {
     'default': {
@@ -115,7 +90,7 @@ DATABASES = {
         'NAME': 'secretariaibes',
         'USER': config('USER'),
         'PASSWORD': config('PASSWORD'),
-        'HOST': 'secretariaibes.postgres.uhserver.com',
+        'HOST': config('HOST'),
         'PORT': '5432',
     }
 }

@@ -637,9 +637,9 @@ def membro_especifico_no_grupo_pequenoNew(request,pk):
             return redirect('/grupos_pequenos/'+str(id_grupo_pequeno)+'/')
         except Exception as e:
             erro = str(e)
-            return render(request,'novo_membro_especifico_do_grupo_pequeno.html',{'membro':membro, 'erro':erro,'grupos_pequenos':grupos_pequenos})
+            return render(request,'atualizar_membro_especifico_do_grupo_pequeno.html',{'membro':membro, 'erro':erro,'grupos_pequenos':grupos_pequenos})
 
-    return render(request,'novo_membro_especifico_do_grupo_pequeno.html',{'membro':membro, 'erro':erro, 'grupos_pequenos':grupos_pequenos})
+    return render(request,'atualizar_membro_especifico_do_grupo_pequeno.html',{'membro':membro, 'erro':erro, 'grupos_pequenos':grupos_pequenos})
 
 
 
