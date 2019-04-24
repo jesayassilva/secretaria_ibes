@@ -15,9 +15,12 @@ handler404 = 'secretariaapp.views.erro404'
 urlpatterns = [
 
     url(r'^$',index,name='index'),
+    #url('igrejaelshaday.org', index,name='igrejaelshaday'),
 
     url(r'^login',auth_views.login,{'template_name': 'login.html'},name='login'),
-    url(r'^logout',auth_views.logout,{'template_name': 'index.html'},name='logout'),
+    #url(r'^logout',auth_views.logout,{'template_name': 'index.html'},name='logout'),
+    url(r'^logout',redirecionar,name='logout'),
+
 
 
     url(r'^sempermissao$',login_required(sempermissao),name='sempermissao'),

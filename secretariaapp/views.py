@@ -15,6 +15,11 @@ from django.contrib.auth import authenticate
 # Create your views here.
 import copy
 
+from django.http import *
+
+from django.contrib.auth import logout
+
+
 '''
     gerenciar_Membros = models.BooleanField(default = False)
     gerenciar_Grupos_Pequenos = models.BooleanField(default = False)
@@ -36,6 +41,12 @@ def index(request):
     except Exception as e:
         userIsLogado = 'Não'
     return render(request,'index.html',{'usuario':usuario})
+
+def redirecionar(request):
+    request.session.items = []
+    request.session.modified = True
+    logout(request)
+    return render(request,'redirect.html')
 
 def relatorios(request, imprimir):
     if not request.user.perfil.gerenciar_Relatorios:

@@ -8,6 +8,16 @@ from django.db.models.signals import post_save
 
 # Create your models here.
 
+class Trilha_Discipulado(models.Model):
+    trilha_discipulado = models.CharField(max_length=100,unique=True)
+    descricao = models.TextField(blank=True)
+    def __str__(self):
+        return str(self.trilha_discipulado)
+    #funcao que faz com que os campos sejam Maiusculo automaticamente
+    def save(self, force_insert=False, force_update=False):
+        self.trilha_discipulado = self.trilha_discipulado.upper()
+        super(Trilha_Discipulado, self).save(force_insert, force_update)
+
 
 class Situacao(models.Model):
     situacao = models.CharField(max_length=100,unique=True)
@@ -128,6 +138,8 @@ class Membro(models.Model):
     ministerios_que_deseja_participar = models.CharField(max_length=100, blank=True)
     participa_grupo_pequeno = models.BooleanField(default = False)
     grupo_pequeno = models.ForeignKey(Grupo_Pequeno, on_delete=models.PROTECT,blank=True,null=True)
+
+    trilha_discipulado = models.ManyToManyField(Trilha_Discipulado, blank=True)
 
     obs = models.TextField(blank=True)
 

@@ -82,13 +82,13 @@ gerenciar_Permissoes_Usuarios
             <td class="negative">Não</td>
         {% endif  %}
 
-        <td> <a href="{% url 'secretariaapp:perfilUpdate' perfil.pk  %}" class="ui button" > Editar Perfil </a>
+        <td> <a href="{% url 'secretariaapp:perfilUpdate' perfil.pk  %}" class="ui red button" > Editar Permissões </a>
         </br> </br>
-        <a href="{% url 'secretariaapp:perfilDetalhes' perfil.pk  %}" class="ui blue button" > Ver </a></td>
+        <a href="{% url 'secretariaapp:perfilDetalhes' perfil.pk  %}" class="ui blue button" > Ver Permissões </a></td>
 
         <td>
-         <a href="{% url 'secretariaapp:userUpdate' perfil.user.pk  %}" class="ui button" > Alterar Usuario </a></br> </br>
-        <a href="{% url 'secretariaapp:userDelete' perfil.user.pk  %}" class="ui red button"  > Deletar </a> </td>
+         <a href="{% url 'secretariaapp:userUpdate' perfil.user.pk  %}" class="ui red button" > Alterar Usuario </a></br> </br>
+        <a href="{% url 'secretariaapp:userDelete' perfil.user.pk  %}" class="ui button"  > Deletar </a> </td>
 
 
       </tr>

@@ -278,16 +278,13 @@
               <tr>
                 <td>{{  lider_Ministerio.ministerio }}</td>
                 <td>{{  lider_Ministerio.obs }}</td>
-                <td><a href="{% url 'secretariaapp:lider_ministerioUpdate' lider_Ministerio.pk  %}" class="ui button" > Editar </a></td>
-                <td><a href="{% url 'secretariaapp:lider_ministerioDelete' lider_Ministerio.pk  %}" class="ui red button"  > Remover </a></td>
+                <td><a href="{% url 'secretariaapp:lider_ministerioUpdate' lider_Ministerio.pk  %}" class="ui red button" > Editar </a></td>
+                <td><a href="{% url 'secretariaapp:lider_ministerioDelete' lider_Ministerio.pk  %}" class="ui button"  > Remover </a></td>
               </tr>
             {% endfor %}
           </tbody>
         </table>
         <a href="{% url 'secretariaapp:lider_ministerio_especificoNew' membro.pk %}" class="ui button yellow" > Adicionar Ministério que Lidera </a>
-
-
-
 
 
 
@@ -305,13 +302,33 @@
               <tr>
                 <td>{{  obreiro_Ministerio.ministerio }}</td>
                 <td>{{  obreiro_Ministerio.obs }}</td>
-                <td><a href="{% url 'secretariaapp:obreiro_ministerioUpdate' obreiro_Ministerio.pk  %}" class="ui button" > Editar </a></td>
-                <td><a href="{% url 'secretariaapp:obreiro_ministerioDelete' obreiro_Ministerio.pk  %}" class="ui red button"  > Remover </a></td>
+                <td><a href="{% url 'secretariaapp:obreiro_ministerioUpdate' obreiro_Ministerio.pk  %}" class="ui red button" > Editar </a></td>
+                <td><a href="{% url 'secretariaapp:obreiro_ministerioDelete' obreiro_Ministerio.pk  %}" class="ui button"  > Remover </a></td>
               </tr>
             {% endfor %}
           </tbody>
         </table>
         <a href="{% url 'secretariaapp:obreiro_ministerioNew' membro.pk %}" class="ui button olive" > Adicionar Ministério que Serve </a>
+
+
+
+
+
+        <h3>Trilha do Discipulado: </h3>
+        <table  class="ui celled table" >
+          <thead>
+            <tr>
+              <th>Trilha Cumprida</th>
+            </tr>
+          </thead>
+          <tbody>
+                {% for trilha in membro.trilha_discipulado.all  %}
+              <tr>
+                <td>{{trilha}}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
 
 
         <h3>Outras Informações</h3>
@@ -326,8 +343,8 @@
         <p></p>
         <p></p>
 
-        <a href="{% url 'secretariaapp:membroUpdate' membro.pk  %}" class="ui button" > Editar </a>
-        <a href="{% url 'secretariaapp:membroDelete' membro.pk  %}" class="ui red button"  > Deletar </a>
+        <a href="{% url 'secretariaapp:membroUpdate' membro.pk  %}" class="ui red button" > Editar </a>
+        <a href="{% url 'secretariaapp:membroDelete' membro.pk  %}" class="ui button"  > Deletar </a>
 
 
 </div>

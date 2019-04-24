@@ -66,8 +66,8 @@
         </td>
         <td>{% if membro.grupo_pequeno is not None %}   {{membro.grupo_pequeno}}   {% endif %}</td>
 
-        <td> <a href="{% url 'secretariaapp:membroUpdate' membro.pk  %}" class="ui button" > Editar </a> </td>
-        <td> <a href="{% url 'secretariaapp:membroDelete' membro.pk  %}" class="ui red button"  > Deletar </a> </td>
+        <td> <a href="{% url 'secretariaapp:membroUpdate' membro.pk  %}" class="ui red button" > Editar </a> </td>
+        <td> <a href="{% url 'secretariaapp:membroDelete' membro.pk  %}" class="ui button"  > Deletar </a> </td>
         <td> <a href="{% url 'secretariaapp:membroDetalhes' membro.pk  %}" class="ui blue button" > Ver </a> </td>
 
 

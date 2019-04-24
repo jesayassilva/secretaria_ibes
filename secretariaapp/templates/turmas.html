@@ -20,8 +20,8 @@
       <tr>
         <td>{{  turma.nome }}</td>
         <td>{{  turma.descricao }}</td>
-        <td> <a href="{% url 'egressapp:turmaUpdate' turma.pk  %}"  class="ui button" > Editar </a> </td>
-        <td> <a href="{% url 'egressapp:turmaDelete' turma.pk  %}" class="ui red button" > Deletar </a> </td>
+        <td> <a href="{% url 'egressapp:turmaUpdate' turma.pk  %}"  class="ui red button" > Editar </a> </td>
+        <td> <a href="{% url 'egressapp:turmaDelete' turma.pk  %}" class="ui button" > Deletar </a> </td>
         <td> <a href="{% url 'egressapp:turmaDetalhes' turma.pk  %}" class="ui blue button" > Visualizar </a> </td>
         <td> <a href="{% url 'egressapp:autorizacaoTurmaEspecificaNew' turma.pk %}" class="ui button positive" > Autorizar Saída </a> </td>
 
