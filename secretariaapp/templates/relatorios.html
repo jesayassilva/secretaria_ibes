@@ -164,6 +164,29 @@
 
 
 
+      <h3>Total de membros que concluiram as etapas da Trilha do Discipulado</h3>
+      <table class="ui celled table" >
+        <thead>
+          <tr>
+            {% for trilha in trilha  %}
+            <th>{{trilha.nome}}</th>
+            {% endfor  %}
+          </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+              {% for trilha in trilha  %}
+              <td>{{trilha.quantidade}}</td>
+              {% endfor  %}
+            </tr>
+        </tbody>
+      </table>
+
+
+
+
+
 
 
     <h3>Total de Membros que chegaram na El Shaday a:</h3>
@@ -257,7 +280,7 @@
 
       <p></p>-->
       <div class="seven wide column">
-        <!-- 
+        <!--
         <p>Amando você em amor a Deus.</p>-->
       </div>
     </div>

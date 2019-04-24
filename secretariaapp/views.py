@@ -67,6 +67,27 @@ def relatorios(request, imprimir):
     grupos_pequenos = Grupo_Pequeno.objects.all().count()
     ministerios = Ministerio.objects.all().count()
 
+
+
+    trilha_discipulado = Trilha_Discipulado.objects.all()
+    membro = Membro.objects.filter(situacao__situacao = 'ATIVO' )
+    trilha = []
+    for td in trilha_discipulado:
+        cont = 0
+        for mb in membro:
+            for item in mb.trilha_discipulado.all():
+                if item == td:
+                    cont = cont +1
+        trilha.append({
+        "nome": td.trilha_discipulado,
+        "quantidade":cont
+        })
+
+
+
+
+
+
     membros_chegada_1mes = Membro.objects.filter(situacao__situacao = 'ATIVO', data_chegada_na_elshaday__gt = (datetime.now() - timedelta(days=30)) ).count()
     membros_chegada_2mes = Membro.objects.filter(situacao__situacao = 'ATIVO', data_chegada_na_elshaday__gt = (datetime.now() - timedelta(days=60)) ).count()
     membros_chegada_4mes = Membro.objects.filter(situacao__situacao = 'ATIVO', data_chegada_na_elshaday__gt = (datetime.now() - timedelta(days=120)) ).count()
@@ -176,7 +197,7 @@ def relatorios(request, imprimir):
     }
 
 
-    return render(request,'relatorios.html',{'dados':dados})
+    return render(request,'relatorios.html',{'dados':dados,'trilha':trilha})
 
 
 def aniversariantes(request):
