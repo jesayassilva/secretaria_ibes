@@ -104,10 +104,10 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'test',
-        'USER': 'root',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
+        'NAME': 'secretariaibes',
+        'USER': 'jesaias1996',
+        'PASSWORD': '0901c49b*',
+        'HOST': 'secretariaibes.mysql.uhserver.com',
         'PORT': '3306',
     }
 }
