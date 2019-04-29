@@ -21,12 +21,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
-#DEBUG = True
+#SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = 's8$^*a)1b5h#xynz)w%!wh5$pc$ou5kyfv(r!5s@9=0a4@#0e#'
+#DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
 
 ADMINS = [('Jesaias Silva', 'jesayassilva@gmail.com')]
-ALLOWED_HOSTS = ['www.elshaday.ml','ibes.herokuapp.com']
+ALLOWED_HOSTS = ['www.elshaday.ml','ibes.herokuapp.com','*']
 
 
 
@@ -84,7 +85,7 @@ DATABASES = {
     }
 }
 '''
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -93,6 +94,21 @@ DATABASES = {
         'PASSWORD': config('PASSWORD'),
         'HOST': config('HOST'),
         'PORT': '5432',
+    }
+}
+'''
+
+
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'test',
+        'USER': 'root',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
+        'PORT': '3306',
     }
 }
 
@@ -134,7 +150,8 @@ USE_TZ = True
 
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+#EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_PASSWORD = 'jesaias09011996*'
 EMAIL_HOST_USER = 'jcps.suporte@gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
