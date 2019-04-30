@@ -10,11 +10,18 @@
   <!-- Site Properties -->
   <title>Login IBES</title>
 
+  <!--
+  <link rel="stylesheet" type="text/css" href="{%  static 'app/semantic/semantic.min.css' %}" />
   <script src="{%  static 'app/js/jquery.js' %}"></script>
   <script src="{%  static 'app/semantic/semantic.min.js' %}" ></script>
-  <link rel="stylesheet" type="text/css" href="{%  static 'app/semantic/semantic.min.css' %}" />
+  -->
 
-  <script src="{% static 'app/js/angular.min.js' %}"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
+
+
+  <!--<script src="{% static 'app/js/angular.min.js' %}"></script>-->
   <script src="{% static 'app/js/ngStorage.js' %} "></script>
 
 
@@ -53,14 +60,14 @@
 
         <div class="field">
           <div class="ui left icon input">
-            <!-- <i class="user icon"></i> -->
+             <i class="user icon"></i>
             <input name="username" placeholder="Usuario" maxlength="254" autofocus="" id="id_username" required="" type="text">
           </div>
         </div>
 
         <div class="field">
           <div class="ui left icon input">
-            <!-- <i class="lock icon"></i> -->
+            <i class="lock icon"></i>
             <input name="password" placeholder="Senha" required="" id="id_password" type="password">
           </div>
         </div>
