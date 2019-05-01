@@ -21,10 +21,10 @@
         <td>{{  grupo_pequeno.nome }}</td>
         <td>{{  grupo_pequeno.descricao }}</td>
 
-
+        <td> <a href="{% url 'secretariaapp:grupo_pequenoDetalhes' grupo_pequeno.pk  %}" class="ui blue button" > Ver </a> </td>
         <td> <a href="{% url 'secretariaapp:grupo_pequenoUpdate' grupo_pequeno.pk  %}" class="ui red button" > Editar </a> </td>
         <td> <a href="{% url 'secretariaapp:grupo_pequenoDelete' grupo_pequeno.pk  %}" class="ui button"  > Deletar </a> </td>
-        <td> <a href="{% url 'secretariaapp:grupo_pequenoDetalhes' grupo_pequeno.pk  %}" class="ui blue button" > Ver </a> </td>
+
 
 
 
