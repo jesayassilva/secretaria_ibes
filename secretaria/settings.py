@@ -108,7 +108,19 @@ DATABASES = {
         'PORT': '3306',
     }
 }
+'''
 
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'ibes',
+        'USER': 'root',
+        'PASSWORD': 'admin',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+'''
 
 
 # Password validation
