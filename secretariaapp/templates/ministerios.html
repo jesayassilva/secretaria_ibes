@@ -8,8 +8,8 @@
     <tr>
       <th>Nome</th>
       <th>Descrição</th>
-      <th>Áreas de Atuação</th>
-      <th>Observações</th>
+      <!--<th>Áreas de Atuação</th>-->
+      <!--<th>Observações</th>-->
       <th colspan="4"> Opções</th>
     </tr>
   </thead>
@@ -26,15 +26,12 @@
       <tr>
         <td>{{  ministerio.nome }}</td>
         <td>{{  ministerio.descricao }}</td>
-        <td>{{  ministerio.areas_atuacao }}</td>
-        <td>{{  ministerio.obs }}</td>
+        <!--<td>{{  ministerio.areas_atuacao }}</td>-->
+        <!--<td>{{  ministerio.obs }}</td>-->
 
-
+        <td> <a href="{% url 'secretariaapp:ministerioDetalhes' ministerio.pk  %}" class="ui blue button" > Ver </a> </td>
         <td> <a href="{% url 'secretariaapp:ministerioUpdate' ministerio.pk  %}" class="ui red button" > Editar </a> </td>
         <td> <a href="{% url 'secretariaapp:ministerioDelete' ministerio.pk  %}" class="ui button"  > Deletar </a> </td>
-        <td> <a href="{% url 'secretariaapp:ministerioDetalhes' ministerio.pk  %}" class="ui blue button" > Ver </a> </td>
-
-
 
 
       </tr>
