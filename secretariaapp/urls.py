@@ -21,6 +21,8 @@ urlpatterns = [
     #url(r'^logout',auth_views.logout,{'template_name': 'index.html'},name='logout'),
     url(r'^logout',redirecionar,name='logout'),
 
+    url(r'^recuperarsenha/(?P<recuperar>[0-9a-z]+)/$',recuperarsenha,name='recuperarsenha'),
+
 
 
     url(r'^sempermissao$',login_required(sempermissao),name='sempermissao'),

@@ -19,6 +19,9 @@ from django.http import *
 
 from django.contrib.auth import logout
 
+from django.core.mail import send_mail #Para mandar email
+from random import randint
+
 
 '''
     gerenciar_Membros = models.BooleanField(default = False)
@@ -252,7 +255,72 @@ def erro500(request):
 
 
 def esqueceuSenha(request):
+    if  request.method == "POST":
+        email = request.POST.get("email")
+        try:
+            perfil = Perfil.objects.get(email = email)
+            perfil = perfil
+            a,b,c,d,e,f = randint(7679,839766548), randint(3629,83966548), randint(3679,83976548),randint(7674,839786548), randint(5643,83966548), randint(6769,8397652)
+            #return HttpResponse(x)
+            perfil.recuperar = 'ibes7kgjmspi'+str(a)+'ksh'+str(b)+'xi'+str(c)+'8fdgckm0'+str(d)+'15jesa'+str(e)+'vkel'+str(f)+'hji87g'
+            perfil.data_recuperar = (datetime.now() + timedelta(seconds=7200))
+            perfil.save()
+            msg = 'Caro '+str(perfil.user.username)+ ' \n\nRecentemente, uma solicitação foi enviada para redefinir sua senha para nossa área de cliente. Se você não solicitou isso, ignore este e-mail. Ele irá expirar e se tornar inútil em 2 horas.  \n\nPara redefinir sua senha, visite o URL abaixo:  \nwww.elshaday.ml/recuperarsenha/'+str(perfil.recuperar)+ ' \n\nAo visitar o link acima, você terá a oportunidade de escolher uma nova senha. \n\nAtt \nJesaías Silva'
+            send_mail(
+            'Recuperar Login e Senha',#Titulo da msg
+            msg,#Mensagem
+            'jcps.suporte@gmail.com',
+            [email],
+            fail_silently=False,
+            )
+        except Exception as e:
+            return HttpResponse("Email Inválido")
+        return redirect('/login/')
     return render(request,'esqueceusenha.html')
+
+def recuperarsenha(request,recuperar):
+    if not(Perfil.objects.filter(recuperar = str(recuperar),data_recuperar__gt = datetime.now()  ) ):
+        return HttpResponse("Sua Solicitação é Inválida")
+
+    erro = ''
+    if  request.method == "POST":
+        password1 = request.POST.get("password1")
+        password2 = request.POST.get("password2")
+        email = request.POST.get("email")
+        if not (password1 == password2) :
+            erro = erro + 'Suas senhas não são iguais. '
+        numero = 0
+        for caracter in password1:
+            if caracter in '0123456789':
+                numero = numero + 1
+        if len(password1) <8 :
+            erro = erro + 'Senha muito curta. '
+        if len(password1) - numero < 1:
+            erro = erro + 'Sua senha não pode ser apenas numerico. '
+        #if password1 == username:
+        #    erro = erro +'Sua senha não pode ser seu nome de Usuário. '
+        if erro != '':
+            return render(request,'recuperarsenha.html',{'erro':erro})
+
+        try:
+            perfil = Perfil.objects.get(email=email)
+            user = User.objects.get(pk = perfil.user.pk)
+            if str(user.perfil.recuperar) == str(recuperar):
+                #if user.perfil.data_recuperar__gt = datetime.now():
+                if User.objects.filter(pk=user.pk,perfil__data_recuperar__gt = datetime.now()):
+                    user.set_password(password1)
+                    user.save()
+                    return redirect('/')
+                else:
+                    return HttpResponse("Sua Solicitação expirou")
+            else:
+                return HttpResponse("Sua Solicitação é Inválida")
+        except Exception as e:
+            erro = 'Email não Cadastrado! '#+str(e)
+    return render(request,'recuperarsenha.html',{'erro':erro})
+
+
+
 
 def suporte(request):
     usuario = request.user
@@ -422,7 +490,8 @@ def userDetalhes(request,pk):
 ############## Perfil #######################
 class PerfilUpdate(UpdateView):
     model = Perfil
-    fields = '__all__'#quais atributos(todos)
+    #fields = '__all__'#quais atributos(todos)
+    fields = ['user','nome_completo','email','gerenciar_Membros','gerenciar_Grupos_Pequenos','gerenciar_Ministerios','gerenciar_Relatorios','gerenciar_Usuarios']
     #form_class = ProvaForm
     success_url = '/perfil/'
     template_name = 'update_permissoes.html'

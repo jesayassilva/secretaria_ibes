@@ -1,0 +1,101 @@
+{% load staticfiles %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Bem Vindo</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
+
+  <!-- <link rel="stylesheet" href="{%  static 'app/index.css' %}" /> -->
+
+  <script src="{% static 'app/js/ngStorage.js' %} "></script>
+
+  <script src="{% static 'app/funcoes.js' %}"></script>
+
+  {% include 'css.html' %}
+
+</head>
+<body ng-app="myApp" ng-controller="appCtrl">
+
+   <div class="ui inverted red menu stackable">
+
+     <div class="ui container font_menu"  >
+
+     <a class="header item" href="{% url 'secretariaapp:index' %}" >
+       <!--<i class="handshake big icon"></i>-->
+       <img src="{%  static 'imagens/ibes.png' %}" class="ui image circular ajustar_imagem_em_cima">
+       IBES
+     </a>
+
+          <a href="{% url 'secretariaapp:login' %}" class="item">Login</a>
+
+    </div>
+  </div>
+
+<div class="corpo_app" >
+
+
+<h2>Alterar meu Usuario e Senha</h2>
+
+{% if erro %}
+<div class="ui negative message">
+  <ul class="list">
+    <b>
+      <p>{{ erro }}</p>
+
+    </b>
+  </ul>
+</div>
+{% endif %}
+
+
+<form class="ui form" action="" method="post">{% csrf_token %}
+
+
+<div class=" field">
+  <label><label for="id_username">Email:</label></label>
+  <p></p>
+  <input type="text" name="email" maxlength="150" required id="id_username" autofocus />
+</div>
+Obrigatório. 150 caracteres ou menos. Letras, números e @/./+/-/_ apenas.
+<p></p>
+
+<div class=" field">
+  <label><label for="id_password1">Nova Senha:</label></label>
+  <p></p>
+  <input type="password" name="password1" required id="id_password1" />
+</div>
+<p></p>
+
+<ul>
+  <li>Sua senha não pode ser tão parecida com suas outras informações pessoais.</li>
+  <li>Sua senha precisa conter pelo menos 8 caracteres.</li>
+  <li>Sua senha não pode ser uma senha habitualmente utilizada.</li>
+  <li>Sua senha não pode ser inteiramente numérica.</li>
+</ul>
+
+<div class=" field">
+  <label><label for="id_password2">Confirmação da nova senha:</label></label>
+  <p></p>
+  <input type="password" name="password2" required id="id_password2" />
+</div>
+Informe a mesma senha informada anteriormente, para verificação.
+<p></p>
+
+
+
+<input type="submit" value="Salvar" class="ui button positive" />
+<a href="javascript:window.history.go(-1)" class="ui button" >Cancelar</a>
+</form>
+
+
+</div>
+{% include 'rodape.html' %}

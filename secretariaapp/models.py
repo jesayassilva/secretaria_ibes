@@ -207,6 +207,8 @@ class Perfil(models.Model):
     gerenciar_Ministerios = models.BooleanField(default = False)
     gerenciar_Relatorios = models.BooleanField(default = False)
     gerenciar_Usuarios = models.BooleanField(default = False)
+    recuperar = models.CharField(max_length=100,blank=True,null=True)
+    data_recuperar = models.DateTimeField(blank=True,null=True)
 
     def __str__(self):
         return self.user.username
