@@ -114,7 +114,7 @@ class Membro(models.Model):
     nome_responsavel = models.CharField(max_length=100,blank=True)
     estado_civil = models.ForeignKey(Estado_Civil, on_delete=models.PROTECT)
     nome_conjuge = models.CharField(max_length=100,blank=True)
-    data_casascimento = models.DateField(blank=True,null=True)
+    data_casamento = models.DateField(blank=True,null=True)
 
     numero_filhos = models.PositiveIntegerField(default= 0)
     filho1 = models.CharField(max_length=100,blank=True)
