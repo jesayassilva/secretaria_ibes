@@ -10,14 +10,24 @@
 
   <title>Bem Vindo</title>
 
+  <!--
+  <link rel="stylesheet" type="text/css" href="{%  static 'app/semantic/semantic.min.css' %}" />
   <script src="{%  static 'app/js/jquery.js' %}"></script>
   <script src="{%  static 'app/semantic/semantic.min.js' %}" ></script>
-  <link rel="stylesheet" type="text/css" href="{%  static 'app/semantic/semantic.min.css' %}" />
+  -->
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js"></script>
 
   <!-- <link rel="stylesheet" href="{%  static 'app/index.css' %}" /> -->
 
-  <script src="{% static 'app/js/angular.min.js' %}"></script>
+
   <script src="{% static 'app/js/ngStorage.js' %} "></script>
+
+
+
+
 
   {% include 'css.html' %}
 
@@ -25,12 +35,12 @@
 </head>
 <body ng-app="myApp" ng-controller="appCtrl">
 
-   <div class="ui inverted red menu stackable">
+   <div class="ui inverted red menu masthead">
 
-     <div class="ui container font_menu"  >
+     <div class="ui container secondary inverted pointing font_menu"  >
 
      <a class="header item" href="{% url 'secretariaapp:index' %}" >
-      
+
        <img src="{%  static 'imagens/ibes.png' %}" class="ui image circular ajustar_imagem_em_cima">
        IBES
      </a>
@@ -40,9 +50,26 @@
           {% include 'menu.html' %}
 
       {% else %}
+          <a class="toc item"> <i class="sidebar icon"></i> </a>
           <a href="{% url 'secretariaapp:login' %}" class="item">Login</a>
       {% endif %}
 
+    </div>
+
+
+    <div class="ui vertical inverted sidebar menu left" style="">
+      {%if usuario.id%}
+          <a class="item" href="{% url 'secretariaapp:membros' %}">Membros</a>
+          <a class="item" href="{% url 'secretariaapp:ministerios' %}">Ministérios</a>
+          <a class="item" href="{% url 'secretariaapp:grupo_pequeno' %}">Grupos Pequenos</a>
+          <a class="item" href="{% url 'secretariaapp:perfil' %}">Usuários</a>
+          <a href="{% url 'secretariaapp:relatorios' "relatorios" %}" class="item">Relatórios</a>
+          <a class="item" href="{% url 'secretariaapp:aniversariantes' %}" >Aniversariantes</a>
+          <a class="item" href="{% url 'secretariaapp:meu_perfilDetalhes' %}">Meu Usuário</a>
+          <a href="{% url 'secretariaapp:logout' %}" class="item">Sair</a>
+      {% else %}
+          <a href="{% url 'secretariaapp:login' %}" class="item">Login</a>
+      {% endif %}
     </div>
 
 

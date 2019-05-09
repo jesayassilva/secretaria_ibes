@@ -53,4 +53,93 @@
       height: 100px;
       width: 100px;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* Para ser Responsivo*/
+    .hidden.font_menu {
+       display: none;
+     }
+
+     .secondary.pointing.font_menu .toc.item {
+       display: none;
+     }
+
+     @media only screen and (max-width: 700px) {
+       .ui.fixed.font_menu {
+         display: none !important;
+       }
+       .secondary.pointing.font_menu .item,
+       .secondary.pointing.font_menu .menu {
+         display: none;
+       }
+       .secondary.pointing.font_menu .toc.item {
+         display: block;
+       }
+     }
+
+
+
+
+
+
+
 </style>
+
+
+
+
+
+
+<script>
+//Para pesquisa com select
+$( document ).ready(function() {
+
+  $( "select" ).addClass("ui search dropdown");
+
+  $('.dropdown')
+  .dropdown();
+
+  $('.search')
+.search({
+  type: 'category'
+});
+
+
+
+// fix menu when passed
+    $('.masthead')
+      .visibility({
+        once: false,
+        onBottomPassed: function() {
+          $('.fixed.menu').transition('fade in');
+        },
+        onBottomPassedReverse: function() {
+          $('.fixed.menu').transition('fade out');
+        }
+      })
+    ;
+
+    // create sidebar and attach to menu open
+    $('.ui.sidebar')
+      .sidebar('attach events', '.toc.item')
+    ;
+
+
+  //console.log( "ready!" );
+});
+
+
+
+</script>

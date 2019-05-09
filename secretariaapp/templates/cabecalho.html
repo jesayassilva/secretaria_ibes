@@ -29,51 +29,38 @@
   <!-- <script src="{% static 'app/js/angular.min.js' %}"></script> da erro na pesquisa pois confunde o angular com python-->
   <script src="{% static 'app/js/ngStorage.js' %} "></script>
 
-  <script>
-  //Para pesquisa com select
-  $( document ).ready(function() {
-
-    $( "select" ).addClass("ui search dropdown");
-
-    $('.dropdown')
-    .dropdown();
-
-    $('.search')
-  .search({
-    type: 'category'
-  });
-
-
-
-
-    //console.log( "ready!" );
-  });
-
-
-
-  </script>
-
 
   {% include 'css.html' %}
+
 
 </head>
 <body ng-app="myApp" ng-controller="appCtrl">
   <!-- <div class="ui fixed inverted green menu"> -->
   <!--  <div class="ui fixed inverted blue menu">   nao responsivo-->
-   <div class="ui inverted red menu stackable">
+  <!-- <div class="ui inverted red menu stackable"> -->
 
-      <div class="ui container font_menu"  >
+  <div class="ui inverted red menu masthead">
 
+      <!--<div class="ui container font_menu secondary inverted pointing"  > -->
+  <div class="ui container secondary inverted pointing font_menu"  >
         <a class="header item" href="{% url 'secretariaapp:index' %}" >
 
           <img src="{%  static 'imagens/ibes.png' %}" class="ui image circular ajustar_imagem_em_cima">
           IBES
         </a>
-
           {% include 'menu.html' %}
 
+  </div>
 
-
-      </div>
+  <div class="ui vertical inverted sidebar menu left" style="">
+    <a class="item" href="{% url 'secretariaapp:membros' %}">Membros</a>
+    <a class="item" href="{% url 'secretariaapp:ministerios' %}">Ministérios</a>
+    <a class="item" href="{% url 'secretariaapp:grupo_pequeno' %}">Grupos Pequenos</a>
+    <a class="item" href="{% url 'secretariaapp:perfil' %}">Usuários</a>
+    <a href="{% url 'secretariaapp:relatorios' "relatorios" %}" class="item">Relatórios</a>
+    <a class="item" href="{% url 'secretariaapp:aniversariantes' %}" >Aniversariantes</a>
+    <a class="item" href="{% url 'secretariaapp:meu_perfilDetalhes' %}">Meu Usuário</a>
+    <a href="{% url 'secretariaapp:logout' %}" class="item">Sair</a>
+  </div>
 
       </div>
