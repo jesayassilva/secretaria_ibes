@@ -13,7 +13,7 @@
   </thead>
 
 <a href="{% url 'secretariaapp:grupo_pequenoNew'%}" class="ui button positive" > Novo Grupo Pequeno </a>
-<a href="{% url 'secretariaapp:lider_grupo_pequenoNew'%}" class="ui button yellow" > Novo Lider de Grupo Pequeno </a>
+<a href="{% url 'secretariaapp:liderGrupoPequenoAdicionar' 0 0 %}" class="ui button yellow" > Novo Lider de Grupo Pequeno </a>
 <a href="{% url 'secretariaapp:membro_grupo_pequenoNew'%}" class="ui button olive" > Novo Membro em Grupo Pequeno </a>
   <tbody>
     {% for grupo_pequeno in grupos_pequenos  %}
@@ -22,8 +22,8 @@
         <td>{{  grupo_pequeno.descricao }}</td>
 
         <td> <a href="{% url 'secretariaapp:grupo_pequenoDetalhes' grupo_pequeno.pk  %}" class="ui blue button" > Ver </a> </td>
-        <td> <a href="{% url 'secretariaapp:grupo_pequenoUpdate' grupo_pequeno.pk  %}" class="ui red button" > Editar </a> </td>
-        <td> <a href="{% url 'secretariaapp:grupo_pequenoDelete' grupo_pequeno.pk  %}" class="ui button"  > Deletar </a> </td>
+        <td> <a href="{% url 'secretariaapp:grupo_pequenoUpdate' grupo_pequeno.pk  %}" class="ui button" > Editar </a> </td>
+        <td> <a href="{% url 'secretariaapp:grupo_pequenoDelete' grupo_pequeno.pk  %}" class="ui red button"  > Deletar </a> </td>
 
 
 

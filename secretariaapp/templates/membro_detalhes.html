@@ -262,29 +262,6 @@
           {% endif %}
         </div>
 
-        <h3>Ministérios que Lidera: </h3>
-
-
-        <table  class="ui celled table" >
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Observações</th>
-              <th colspan="2"> Opções</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for lider_Ministerio in lider_Ministerios  %}
-              <tr>
-                <td>{{  lider_Ministerio.ministerio }}</td>
-                <td>{{  lider_Ministerio.obs }}</td>
-                <td><a href="{% url 'secretariaapp:lider_ministerioUpdate' lider_Ministerio.pk  %}" class="ui red button" > Editar </a></td>
-                <td><a href="{% url 'secretariaapp:lider_ministerioDelete' lider_Ministerio.pk  %}" class="ui button"  > Remover </a></td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-        <a href="{% url 'secretariaapp:lider_ministerio_especificoNew' membro.pk %}" class="ui button yellow" > Adicionar Ministério que Lidera </a>
 
 
 
@@ -293,25 +270,50 @@
           <thead>
             <tr>
               <th>Nome</th>
-              <th>Observações</th>
-              <th colspan="2"> Opções</th>
             </tr>
           </thead>
           <tbody>
-              {% for obreiro_Ministerio in obreiro_Ministerios  %}
+              {% for ministerio in membro.ministerios.all  %}
               <tr>
-                <td>{{  obreiro_Ministerio.ministerio }}</td>
-                <td>{{  obreiro_Ministerio.obs }}</td>
-                <td><a href="{% url 'secretariaapp:obreiro_ministerioUpdate' obreiro_Ministerio.pk  %}" class="ui red button" > Editar </a></td>
-                <td><a href="{% url 'secretariaapp:obreiro_ministerioDelete' obreiro_Ministerio.pk  %}" class="ui button"  > Remover </a></td>
+                <td>{{  ministerio }}</td>
               </tr>
             {% endfor %}
           </tbody>
         </table>
-        <a href="{% url 'secretariaapp:obreiro_ministerioNew' membro.pk %}" class="ui button olive" > Adicionar Ministério que Serve </a>
 
 
+        <h3>Ministérios que Lidera: </h3>
+        <table  class="ui celled table" >
+          <thead>
+            <tr>
+              <th>Nome</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ministerio in membro.ministerios_que_lidera.all  %}
+              <tr>
+                <td>{{  ministerio }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
 
+
+        <h3>Grupos Pequenos que Lidera: </h3>
+        <table  class="ui celled table" >
+          <thead>
+            <tr>
+              <th>Nome</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for grupo_pequeno in membro.grupos_pequenos_que_lidera.all  %}
+              <tr>
+                <td>{{  grupo_pequeno }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
 
 
         <h3>Trilha do Discipulado: </h3>
@@ -343,8 +345,8 @@
         <p></p>
         <p></p>
 
-        <a href="{% url 'secretariaapp:membroUpdate' membro.pk  %}" class="ui red button" > Editar </a>
-        <a href="{% url 'secretariaapp:membroDelete' membro.pk  %}" class="ui button"  > Deletar </a>
+        <a href="{% url 'secretariaapp:membroUpdate' membro.pk  %}" class="ui button" > Editar </a>
+        <a href="{% url 'secretariaapp:membroDelete' membro.pk  %}" class="ui red button"  > Deletar </a>
 
 
 </div>

@@ -16,9 +16,9 @@
 
 <a href="{% url 'secretariaapp:ministerioNew'%}" class="ui button positive" > Novo Ministério </a>
 
-<a href="{% url 'secretariaapp:lider_ministerioNew'%}" class="ui button yellow" > Novo Líder de Ministério </a>
+<a href="{% url 'secretariaapp:obreiroOuLiderAdicionar' 0 0 1  %}" class="ui button yellow" > Novo Líder de Ministério </a>
 
-<a href="{% url 'secretariaapp:Obreiro_MinisterioCreate'%}" class="ui button olive" > Novo Obreiro em Ministério </a>
+<a href="{% url 'secretariaapp:obreiroOuLiderAdicionar' 0 0 2  %}" class="ui button olive" > Novo Obreiro em Ministério </a>
 
 
   <tbody>
@@ -30,8 +30,8 @@
         <!--<td>{{  ministerio.obs }}</td>-->
 
         <td> <a href="{% url 'secretariaapp:ministerioDetalhes' ministerio.pk  %}" class="ui blue button" > Ver </a> </td>
-        <td> <a href="{% url 'secretariaapp:ministerioUpdate' ministerio.pk  %}" class="ui red button" > Editar </a> </td>
-        <td> <a href="{% url 'secretariaapp:ministerioDelete' ministerio.pk  %}" class="ui button"  > Deletar </a> </td>
+        <td> <a href="{% url 'secretariaapp:ministerioUpdate' ministerio.pk  %}" class="ui button" > Editar </a> </td>
+        <td> <a href="{% url 'secretariaapp:ministerioDelete' ministerio.pk  %}" class="ui red button"  > Deletar </a> </td>
 
 
       </tr>

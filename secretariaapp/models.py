@@ -89,6 +89,17 @@ class Escolaridade(models.Model):
         self.escolaridade = self.escolaridade.upper()
         super(Escolaridade, self).save(force_insert, force_update)
 
+class Ministerio(models.Model):
+    nome = models.CharField(max_length=100)
+    descricao = models.TextField(blank=True)
+    areas_atuacao = models.CharField(max_length=100,blank=True)
+    obs = models.TextField(blank=True)
+    def __str__(self):
+        return str(self.nome)
+
+    def save(self, force_insert=False, force_update=False):
+        self.nome = self.nome.upper()
+        super(Ministerio, self).save(force_insert, force_update)
 
 
 class Membro(models.Model):
@@ -136,8 +147,12 @@ class Membro(models.Model):
     data_chegada_na_elshaday = models.DateField(default=datetime.now,blank=True,null=True)
     origem = models.ForeignKey(Origem, on_delete=models.PROTECT,blank=True,null=True)
     ministerios_que_deseja_participar = models.CharField(max_length=100, blank=True)
+    ministerios = models.ManyToManyField(Ministerio, blank=True)
+    ministerios_que_lidera = models.ManyToManyField(Ministerio, blank=True, related_name='lider_ministario')
+
     participa_grupo_pequeno = models.BooleanField(default = False)
     grupo_pequeno = models.ForeignKey(Grupo_Pequeno, on_delete=models.PROTECT,blank=True,null=True)
+    grupos_pequenos_que_lidera = models.ManyToManyField(Grupo_Pequeno, blank=True, related_name='grupo_pequeno_lider')
 
     trilha_discipulado = models.ManyToManyField(Trilha_Discipulado, blank=True)
 
@@ -150,7 +165,7 @@ class Membro(models.Model):
         self.nome_completo = self.nome_completo.upper()
         super(Membro, self).save(force_insert, force_update)
 
-
+'''
 class Lider_Grupo_Pequeno(models.Model):
     lider = models.ForeignKey(Membro,related_name = 'lider', on_delete=models.CASCADE)
     grupo_pequeno = models.ForeignKey(Grupo_Pequeno, on_delete=models.CASCADE)
@@ -160,18 +175,6 @@ class Lider_Grupo_Pequeno(models.Model):
 
 
 
-class Ministerio(models.Model):
-    nome = models.CharField(max_length=100)
-    descricao = models.TextField(blank=True)
-    areas_atuacao = models.CharField(max_length=100,blank=True)
-    obs = models.TextField(blank=True)
-    def __str__(self):
-        return str(self.nome)
-
-    def save(self, force_insert=False, force_update=False):
-        self.nome = self.nome.upper()
-        super(Ministerio, self).save(force_insert, force_update)
-
 class Lider_Ministerio(models.Model):
     nome_lider = models.ForeignKey(Membro,related_name = 'nome_lider', on_delete=models.CASCADE)
     ministerio = models.ForeignKey(Ministerio, on_delete=models.CASCADE)
@@ -179,7 +182,7 @@ class Lider_Ministerio(models.Model):
     def __str__(self):
         return str(self.nome_lider) +' LIDER DO '+ str(self.ministerio )
 
-    '''
+
     def save(self, force_insert=False, force_update=False):
         try:
             x = Lider_Ministerio.objects.get(ministerio = self.ministerio, nome_lider = self.nome_lider )
@@ -187,7 +190,7 @@ class Lider_Ministerio(models.Model):
             super(Lider_Ministerio, self).save(force_insert, force_update)
             #So salva se nao tiver nenhum ingual
         #nao faz nada se tiver repetido
-    '''
+
 
 class Obreiro_Ministerio(models.Model):
     obreiro = models.ForeignKey(Membro,related_name = 'obreiro', on_delete=models.CASCADE)
@@ -195,7 +198,7 @@ class Obreiro_Ministerio(models.Model):
     obs = models.TextField(blank=True,null=True)
     def __str__(self):
         return str(self.obreiro) +' OBREIRO DO '+ str(self.ministerio )
-
+'''
 
 
 class Perfil(models.Model):

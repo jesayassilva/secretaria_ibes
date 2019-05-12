@@ -33,9 +33,6 @@ from random import randint
 '''
 
 def index(request):
-    #forcar_nao_repetir_obreiro_ministerio()
-    #forcar_nao_repetir_lider_ministerio()
-    #forcar_nao_repetir_lider_GP()
     usuario = request.user
     try:
         perfil = Perfil.objects.get(user=usuario)
@@ -61,9 +58,6 @@ def relatorios(request, imprimir):
     else:
         return redirect('/')
 
-    forcar_nao_repetir_obreiro_ministerio()
-    forcar_nao_repetir_lider_ministerio()
-    forcar_nao_repetir_lider_GP()
 
     membros_ativo = Membro.objects.filter(situacao__situacao = 'ATIVO' ).count()
     membros_disciplinado = Membro.objects.filter(situacao__situacao = 'DISCIPLINADO' ).count()
@@ -81,9 +75,14 @@ def relatorios(request, imprimir):
             for item in mb.trilha_discipulado.all():
                 if item == td:
                     cont = cont +1
+        try:
+            porTrilha = 100/membros_ativo * cont
+        except Exception as e:
+            porTrilha = 0
         trilha.append({
         "nome": td.trilha_discipulado,
-        "quantidade":cont
+        "quantidade":cont,
+        "porTrilha":porTrilha
         })
 
 
@@ -122,21 +121,33 @@ def relatorios(request, imprimir):
     #, data_nascimento__lte = (datetime.now() - timedelta(days=2920))
     #membros_ativo_14idade = membros_ativo_14idade - membros_ativo_8idade
 
+
     membros_ativo_participacao_ministerio = 0
+    membros_ativo_participacao_ministerio = membros_ativo - Membro.objects.filter(ministerios = None, situacao__situacao = 'ATIVO').count()
+    '''
     for aux1 in Membro.objects.filter(situacao__situacao = 'ATIVO' ):
         for aux2 in Obreiro_Ministerio.objects.filter(obreiro__situacao__situacao = 'ATIVO' ):
             if aux1.pk == aux2.obreiro.pk :
                 membros_ativo_participacao_ministerio = membros_ativo_participacao_ministerio + 1
                 break
+    '''
 
     membros_ativo_sem_participacao_ministerio = membros_ativo - membros_ativo_participacao_ministerio
     try:
-        porcentagem_membros_ativo_sem_participacao_ministerio = 100 / membros_ativo * membros_ativo_sem_participacao_ministerio
+        porcentagem_membros_ativo_participacao_ministerio = 100 / membros_ativo * membros_ativo_participacao_ministerio
     except Exception as e:
-        porcentagem_membros_ativo_sem_participacao_ministerio = 0
+        porcentagem_membros_ativo_participacao_ministerio = 0
 
-
+    '''
     membros_ativo_participacao_lideranca = 0
+
+    for item in Membro.objects.filter(situacao__situacao = 'ATIVO' ):
+        if item.ministerios_que_lidera != None:
+            membros_ativo_participacao_lideranca = membros_ativo_participacao_lideranca + 1
+            break
+        if item.grupos_pequenos_que_lidera != None:
+            membros_ativo_participacao_lideranca = membros_ativo_participacao_lideranca + 1
+            break
 
     for aux1 in Membro.objects.filter(situacao__situacao = 'ATIVO' ):
         quebrar_laco = False
@@ -156,7 +167,13 @@ def relatorios(request, imprimir):
         porcentagem_membros_ativo_participacao_lideranca = 100 / membros_ativo * membros_ativo_participacao_lideranca
     except Exception as e:
         porcentagem_membros_ativo_participacao_lideranca = 0
+    '''
 
+    membros_ativo_participacao_gp = membros_ativo - Membro.objects.filter(grupo_pequeno = None, situacao__situacao = 'ATIVO').count()
+    try:
+        porcentagem_membros_ativo_participacao_gp = 100 / membros_ativo * membros_ativo_participacao_gp
+    except Exception as e:
+        porcentagem_membros_ativo_participacao_gp = 0
 
 
     dados = {
@@ -193,9 +210,11 @@ def relatorios(request, imprimir):
     'membros_ativo_idade_nao_informada':membros_ativo_idade_nao_informada,
     'membros_ativo_participacao_ministerio':membros_ativo_participacao_ministerio,
     'membros_ativo_sem_participacao_ministerio': membros_ativo_sem_participacao_ministerio,
-    'porcentagem_membros_ativo_sem_participacao_ministerio' : porcentagem_membros_ativo_sem_participacao_ministerio,
-    'membros_ativo_participacao_lideranca':membros_ativo_participacao_lideranca,
-    'porcentagem_membros_ativo_participacao_lideranca':porcentagem_membros_ativo_participacao_lideranca
+    'porcentagem_membros_ativo_participacao_ministerio' : porcentagem_membros_ativo_participacao_ministerio,
+    #'membros_ativo_participacao_lideranca':membros_ativo_participacao_lideranca,
+    #'porcentagem_membros_ativo_participacao_lideranca':porcentagem_membros_ativo_participacao_lideranca
+    'membros_ativo_participacao_gp' : membros_ativo_participacao_gp,
+    'porcentagem_membros_ativo_participacao_gp' : porcentagem_membros_ativo_participacao_gp,
 
     }
 
@@ -326,6 +345,7 @@ def suporte(request):
     usuario = request.user
     return render(request,'suporte.html', {'usuario':usuario})
 
+
 def forcar_user_atualizar_perfil(request):
     usuario = request.user
     perfil = Perfil.objects.get(user=usuario)
@@ -341,66 +361,6 @@ def forcar_user_atualizar_perfil(request):
     if len(perfil.nome_completo) <10  or len(perfil.email) < 10 or espaco == 0 or numero > 0:
         return True
     return False
-
-
-def forcar_nao_repetir_obreiro_ministerio():
-    cont = 1
-    while cont < 2:
-        obreiro_Ministerio1 = Obreiro_Ministerio.objects.all()
-        obreiro_Ministerio2 = Obreiro_Ministerio.objects.all()
-        for item1 in obreiro_Ministerio1:
-            for item2 in obreiro_Ministerio2:
-                if item1.obreiro == item2.obreiro :
-                    if item1.ministerio == item2.ministerio :
-                        if not(item1.pk == item2.pk) :
-                            item1.delete()
-                            cont = cont = 0
-                            break
-            if cont == 0:
-                break
-        #if cont == 0:
-        #    break
-        cont = cont + 1
-
-def forcar_nao_repetir_lider_ministerio():
-    cont = 1
-    while cont < 2:
-        lider_Ministerio1 = Lider_Ministerio.objects.all()
-        lider_Ministerio2 = Lider_Ministerio.objects.all()
-        for item1 in lider_Ministerio1:
-            for item2 in lider_Ministerio2:
-                if item1.nome_lider == item2.nome_lider :
-                    if item1.ministerio == item2.ministerio :
-                        if not(item1.pk == item2.pk) :
-                            item1.delete()
-                            cont = cont = 0
-                            break
-            if cont == 0:
-                break
-        #if cont == 0:
-        #    break
-        cont = cont + 1
-
-def forcar_nao_repetir_lider_GP():
-    cont = 1
-    while cont < 2:
-        lider_grupo_pequeno1 = Lider_Grupo_Pequeno.objects.all()
-        lider_grupo_pequeno2 = Lider_Grupo_Pequeno.objects.all()
-        for item1 in lider_grupo_pequeno1:
-            for item2 in lider_grupo_pequeno2:
-                if item1.lider == item2.lider :
-                    if item1.grupo_pequeno == item2.grupo_pequeno :
-                        if not(item1.pk == item2.pk) :
-                            item1.delete()
-                            cont = cont = 0
-                            break
-            if cont == 0:
-                break
-        #if cont == 0:
-        #    break
-        cont = cont + 1
-
-
 
 ############## Usuario #######################
 class UserCreate(CreateView):
@@ -620,31 +580,6 @@ def membro(request):
         #if opc != 'aniv':
         membros = Membro.objects.filter(situacao = situacao_ativo).order_by('nome_completo')
         qtd = membros.count
-
-        '''
-        else:
-            mes = 1
-            while mes<=12:
-                dia = 1
-                while dia<=31:
-                    membrosN = Membro.objects.filter(situacao = situacao_ativo, data_nascimento__month = mes, data_nascimento__day = dia)
-                    for item in membrosN:
-                        membros.append({
-                        "pk": item.pk,
-                        "nome_completo":item.nome_completo,
-                        "situacao":item.situacao,
-                        "data_nascimento": item.data_nascimento,
-                        "sexo":item.sexo,
-                        "naturalidade":item.naturalidade,
-                        "telefone_celular": item.telefone_celular,
-                        "data_conversao":item.data_conversao,
-                        "grupo_pequeno":item.grupo_pequeno
-                        })
-                    dia = dia +1
-                mes = mes +1
-            qtd = 'Aniversariantes (dos membros ativos)'
-            #Gambiara Editar depois pois se mudar nome de campo pode dar erro
-        '''
     return render(request,'membros.html',{'membros':membros, 'todas_situacao':todas_situacao,'situacao_ativo':situacao_ativo, 'qtd':qtd})
 
 
@@ -652,9 +587,6 @@ def membroDetalhes(request,pk):
     if not request.user.perfil.gerenciar_Membros:
         return redirect('/sempermissao')
 
-    forcar_nao_repetir_obreiro_ministerio()
-    forcar_nao_repetir_lider_ministerio()
-    forcar_nao_repetir_lider_GP()
 
     if forcar_user_atualizar_perfil(request) :
         return redirect('/meu_perfil/update/')
@@ -662,11 +594,9 @@ def membroDetalhes(request,pk):
 
     try:
         membro = Membro.objects.get(pk=pk)
-        obreiro_Ministerios = Obreiro_Ministerio.objects.filter(obreiro = membro).order_by('ministerio')
-        lider_Ministerios = Lider_Ministerio.objects.filter(nome_lider = membro).order_by('ministerio')
     except Exception as e:
         return redirect('/membros')
-    return render(request,'membro_detalhes.html',{'membro':membro, 'obreiro_Ministerios': obreiro_Ministerios, 'lider_Ministerios':lider_Ministerios})
+    return render(request,'membro_detalhes.html',{'membro':membro})
 
 
 
@@ -793,8 +723,7 @@ def ministerio(request):
 
 
 def ministerioDetalhes(request,pk):
-    forcar_nao_repetir_obreiro_ministerio()
-    forcar_nao_repetir_lider_ministerio()
+
     if not request.user.perfil.gerenciar_Ministerios:
         return redirect('/sempermissao')
 
@@ -802,205 +731,109 @@ def ministerioDetalhes(request,pk):
         return redirect('/meu_perfil/update/')
     try:
         ministerio = Ministerio.objects.get(pk=pk)
-        obreiro_Ministerios = Obreiro_Ministerio.objects.filter(ministerio = ministerio).order_by('obreiro')
-        lider_Ministerios = Lider_Ministerio.objects.filter(ministerio = ministerio).order_by('nome_lider')
+        obreiro_Ministerios = Membro.objects.filter(ministerios = ministerio).order_by('nome_completo')
+        lider_Ministerios = Membro.objects.filter(ministerios_que_lidera = ministerio).order_by('nome_completo')
         total_obreiros = obreiro_Ministerios.count
     except Exception as e:
         return redirect('/ministerios')
     return render(request,'ministerio_detalhes.html',{'ministerio':ministerio, 'obreiro_Ministerios':obreiro_Ministerios, 'lider_Ministerios':lider_Ministerios, 'total_obreiros':total_obreiros})
 
 
-
-
-
-############## Ministerio_Membro(Obreiro) #######################
-
-def obreiro_Ministerio_Especifico(request,pk):
+################################## Generico #########################################################
+def obreiroOuLiderDelete(request,mt,mb,opc):#Deletar o lider ou obreiro
+    #opc= 1 é lider
+    #opc = 2 é obreiro
     if not request.user.perfil.gerenciar_Ministerios:
         return redirect('/sempermissao')
-
-    erro = ''
     try:
-        ministerio = Ministerio.objects.get(pk=pk)
-        membros = Membro.objects.all().order_by('nome_completo')
+        ministerio = Ministerio.objects.get(pk=mt)
+        membro = Membro.objects.get(pk=mb)
+        if opc == '1':#Lider
+            membro.ministerios_que_lidera.remove(ministerio)
+        elif opc == '2':#Obreiro
+            membro.ministerios.remove(ministerio)
+        else:
+            return HttpResponse('URL Inválida')
     except Exception as e:
         return redirect('/ministerios/')
-    if  request.method == "POST":
-        obs = request.POST.get("obs")
-        id_membro = request.POST.get("membro")
-        membro = Membro.objects.get(pk=id_membro)
-        obreiro_Ministerio = Obreiro_Ministerio()
-        try:
-            obreiro_Ministerio.obs = obs
-            obreiro_Ministerio.obreiro = membro
-            obreiro_Ministerio.ministerio = ministerio
-            obreiro_Ministerio.save()
-            #return redirect('/membros/')
-            return redirect('/ministerios/'+str(pk)+'/')
-        except Exception as e:
-            erro = str(e)
-            #return JsonResponse({"Erro":"Formulario invalido"},safe=True,status=400)
-            return render(request,'novo_obreiro_do_ministerio_especifico.html',{'membros':membros, 'erro':erro,'ministerio':ministerio})
-
-    return render(request,'novo_obreiro_do_ministerio_especifico.html',{'membros':membros, 'erro':erro, 'ministerio':ministerio})
+    return redirect('/ministerios/'+str(mt)+'/')
 
 
-
-class Obreiro_MinisterioCreate(CreateView):
-    model = Obreiro_Ministerio
-    fields = '__all__'#quais atributos(todos)
-    success_url = '/ministerios/'
-    template_name = 'create.html'
-
-    def get(self, request, *args, **kwargs):
-        if not self.request.user.perfil.gerenciar_Ministerios:
-            return redirect('/sempermissao')
-        return super(Obreiro_MinisterioCreate, self).get(request, *args, **kwargs)
-
-class Obreiro_MinisterioUpdate(UpdateView):
-    model = Obreiro_Ministerio
-    fields = '__all__'#quais atributos(todos)
-    success_url = '/ministerios/'
-    template_name = 'update.html'
-
-    def get(self, request, *args, **kwargs):
-        if not (self.request.user.perfil.gerenciar_Ministerios or self.request.user.perfil.gerenciar_Membros):
-            return redirect('/sempermissao')
-        return super(Obreiro_MinisterioUpdate, self).get(request, *args, **kwargs)
-
-class Obreiro_MinisterioDelete(DeleteView):
-    model = Obreiro_Ministerio
-    success_url = '/ministerios/'
-    template_name = 'delete.html'
-
-    def get(self, request, *args, **kwargs):
-        if not (self.request.user.perfil.gerenciar_Ministerios or self.request.user.perfil.gerenciar_Membros):
-            return redirect('/sempermissao')
-        return super(Obreiro_MinisterioDelete, self).get(request, *args, **kwargs)
-
-def obreiro_MinisterioNew(request,pk):
-    if not request.user.perfil.gerenciar_Membros:
-        return redirect('/sempermissao')
-
+def obreiroOuLiderAdicionar(request,mt,mb,opc):
+    # mt é id do ministerio ; md é id do membro
+    #opc= 1 é lider ministerio
+    #opc = 2 é obreiro ministerio
     erro = ''
-    try:
-        membro = Membro.objects.get(pk=pk)
-        ministerios = Ministerio.objects.all().order_by('nome')
-    except Exception as e:
-        return redirect('/membros/a/')
-    if  request.method == "POST":
-        obs = request.POST.get("obs")
-        id_ministerio = request.POST.get("ministerio")
-        ministerio = Ministerio.objects.get(pk=id_ministerio)
-        obreiro_Ministerio = Obreiro_Ministerio()
-        try:
-            obreiro_Ministerio.obs = obs
-            obreiro_Ministerio.obreiro = membro
-            obreiro_Ministerio.ministerio = ministerio
-            obreiro_Ministerio.save()
-            #return redirect('/membros/')
-            return redirect('/membros/'+str(pk)+'/')
-        except Exception as e:
-            erro = str(e)
-            #return JsonResponse({"Erro":"Formulario invalido"},safe=True,status=400)
-            return render(request,'novo_obreiro_ministerios_especifico.html',{'membro':membro, 'erro':erro,'ministerios':ministerios})
-
-    return render(request,'novo_obreiro_ministerios_especifico.html',{'membro':membro, 'erro':erro, 'ministerios':ministerios})
-
-
-############## Lider_Ministerio #######################
-
-def lider_do_ministerio(request,pk):
+    ministerio_especifico = ""
+    membro_especifico = ""
     if not request.user.perfil.gerenciar_Ministerios:
         return redirect('/sempermissao')
+    membros = Membro.objects.all().order_by('nome_completo')
+    ministerios = Ministerio.objects.all().order_by('nome')
 
-    erro = ''
     try:
-        ministerio = Ministerio.objects.get(pk=pk)
-        membros = Membro.objects.all().order_by('nome_completo')
+        if (opc == '1' or opc == '2') and mt != '0' :#Lider ou Obreiro
+            ministerio_especifico = Ministerio.objects.get(pk=mt)
+        if  request.method == "POST":
+            id_membro = request.POST.get("obreiro")
+            id_ministerio = request.POST.get("ministerio")
+            ministerio = Ministerio.objects.get(pk=id_ministerio)
+            membro = Membro.objects.get(pk=id_membro)
+
+            if opc == '1':#Lider
+                membro.ministerios_que_lidera.add(ministerio)
+                return redirect('/ministerios/'+str(id_ministerio)+'/')
+            elif opc == '2':#Obreiro
+                membro.ministerios.add(ministerio)
+                return redirect('/ministerios/'+str(id_ministerio)+'/')
+            else:
+                return HttpResponse('URL Inválida')
     except Exception as e:
-        return redirect('/ministerios/')
-    if  request.method == "POST":
-        obs = request.POST.get("obs")
-        id_membro = request.POST.get("membro")
-        membro = Membro.objects.get(pk=id_membro)
-        lider_Ministerio = Lider_Ministerio()
-        try:
-            lider_Ministerio.obs = obs
-            lider_Ministerio.nome_lider = membro
-            lider_Ministerio.ministerio = ministerio
-            lider_Ministerio.save()
-            #return redirect('/membros/')
-            return redirect('/ministerios/'+str(pk)+'/')
-        except Exception as e:
-            erro = str(e)
-            #return JsonResponse({"Erro":"Formulario invalido"},safe=True,status=400)
-            return render(request,'novo_lider_do_ministerio.html',{'membros':membros, 'erro':erro,'ministerio':ministerio})
-
-    return render(request,'novo_lider_do_ministerio.html',{'membros':membros, 'erro':erro, 'ministerio':ministerio})
+        erro = str(e)
+    return render(request,'obreiro_ou_lider_adicionar.html',{'ministerios':ministerios, 'membros':membros, 'opc':opc,'erro':erro,'ministerio_especifico':ministerio_especifico})
 
 
-class Lider_MinisterioCreate(CreateView):
-    model = Lider_Ministerio
-    fields = '__all__'#quais atributos(todos)
-    success_url = '/ministerios/'
-    template_name = 'create.html'
-
-    def get(self, request, *args, **kwargs):
-        if not self.request.user.perfil.gerenciar_Ministerios:
-            return redirect('/sempermissao')
-        return super(Lider_MinisterioCreate, self).get(request, *args, **kwargs)
 
 
-class Lider_MinisterioUpdate(UpdateView):
-    model = Lider_Ministerio
-    fields = '__all__'#quais atributos(todos)
-    success_url = '/ministerios/'
-    template_name = 'update.html'
-
-    def get(self, request, *args, **kwargs):
-        if not (self.request.user.perfil.gerenciar_Ministerios or self.request.user.perfil.gerenciar_Membros):
-            return redirect('/sempermissao')
-        return super(Lider_MinisterioUpdate, self).get(request, *args, **kwargs)
-
-class Lider_MinisterioDelete(DeleteView):
-    model = Lider_Ministerio
-    success_url = '/ministerios/'
-    template_name = 'delete.html'
-
-    def get(self, request, *args, **kwargs):
-        if not (self.request.user.perfil.gerenciar_Ministerios or self.request.user.perfil.gerenciar_Membros):
-            return redirect('/sempermissao')
-        return super(Lider_MinisterioDelete, self).get(request, *args, **kwargs)
-
-def lider_Ministerio_Epecifico_New(request,pk):
-    if not request.user.perfil.gerenciar_Membros:
+def liderGrupoPequenoDelete(request,gp,mb):#Deletar o lider do ministerio
+    if not request.user.perfil.gerenciar_Grupos_Pequenos:
         return redirect('/sempermissao')
-
-    erro = ''
     try:
-        membro = Membro.objects.get(pk=pk)
-        ministerios = Ministerio.objects.all().order_by('nome')
+        grupo_pequeno = Grupo_Pequeno.objects.get(pk=gp)
+        membro = Membro.objects.get(pk=mb)
+        membro.grupos_pequenos_que_lidera.remove(grupo_pequeno)
     except Exception as e:
-        return redirect('/ministerios/')
-    if  request.method == "POST":
-        obs = request.POST.get("obs")
-        id_ministerio = request.POST.get("ministerio")
-        ministerio = Ministerio.objects.get(pk=id_ministerio)
-        lider_Ministerio = Lider_Ministerio()
-        try:
-            lider_Ministerio.obs = obs
-            lider_Ministerio.nome_lider = membro
-            lider_Ministerio.ministerio = ministerio
-            lider_Ministerio.save()
-            #return redirect('/membros/')
-            return redirect('/membros/'+str(pk)+'/')
-        except Exception as e:
-            erro = str(e)
-            #return JsonResponse({"Erro":"Formulario invalido"},safe=True,status=400)
-            return render(request,'novo_lider_ministerios_especifico.html',{'membro':membro, 'erro':erro,'ministerios':ministerios})
+        return HttpResponse('URL Inválida')
+    return redirect('/grupos_pequenos/'+str(gp)+'/')
 
-    return render(request,'novo_lider_ministerios_especifico.html',{'membro':membro, 'erro':erro, 'ministerios':ministerios})
+
+def liderGrupoPequenoAdicionar(request,gp,mb):
+    # mt é id do ministerio ; md é id do membro
+    erro = ''
+    grupo_pequeno_especifico = ""
+    membro_especifico = ""
+    if not request.user.perfil.gerenciar_Ministerios:
+        return redirect('/sempermissao')
+    membros = Membro.objects.all().order_by('nome_completo')
+    grupos_pequenos = Grupo_Pequeno.objects.all().order_by('nome')
+
+    try:
+        if  gp != '0' :#Lider ou Obreiro
+            grupo_pequeno_especifico = Grupo_Pequeno.objects.get(pk=gp)
+        if  request.method == "POST":
+            id_membro = request.POST.get("obreiro")
+            id_grupo_pequeno = request.POST.get("grupo_pequeno")
+            grupo_pequeno = Grupo_Pequeno.objects.get(pk=id_grupo_pequeno)
+            membro = Membro.objects.get(pk=id_membro)
+
+            membro.grupos_pequenos_que_lidera.add(grupo_pequeno)
+            return redirect('/grupos_pequenos/'+str(id_grupo_pequeno)+'/')
+    except Exception as e:
+        erro = str(e)
+    return render(request,'lider_grupo_pequeno_adicionar.html',{'grupos_pequenos':grupos_pequenos, 'membros':membros, 'erro':erro,'grupo_pequeno_especifico':grupo_pequeno_especifico})
+
+
+
 
 
 
@@ -1047,18 +880,18 @@ def grupo_pequeno(request):
     return render(request,'grupos_pequenos.html',{'grupos_pequenos':grupos_pequenos})
 
 def grupo_pequenoDetalhes(request,pk):
-    forcar_nao_repetir_lider_GP()
+
     if not request.user.perfil.gerenciar_Grupos_Pequenos:
         return redirect('/sempermissao')
 
     if forcar_user_atualizar_perfil(request) :
         return redirect('/meu_perfil/update/')
-    try:
-        grupo_pequeno = Grupo_Pequeno.objects.get(pk=pk)
-        membros = Membro.objects.filter(grupo_pequeno = grupo_pequeno).order_by('nome_completo')
-        lider_grupo_pequeno = Lider_Grupo_Pequeno.objects.filter(grupo_pequeno = grupo_pequeno).order_by('lider')
-    except Exception as e:
-        return redirect('/grupos_pequenos')
+    #try:
+    grupo_pequeno = Grupo_Pequeno.objects.get(pk=pk)
+    membros = Membro.objects.filter(grupo_pequeno = grupo_pequeno).order_by('nome_completo')
+    lider_grupo_pequeno = Membro.objects.filter(grupos_pequenos_que_lidera = grupo_pequeno)
+    #except Exception as e:
+    #    return redirect('/grupos_pequenos')
     return render(request,'grupo_pequeno_detalhes.html',{'grupo_pequeno':grupo_pequeno, 'membros': membros, 'lider_grupo_pequeno':lider_grupo_pequeno})
 
 ###### remover membro do pg ########
@@ -1073,72 +906,3 @@ def remover_membro_pg(request,pk_m,pk_pg):
     except Exception as e:
         return redirect('/grupos_pequenos')
     return redirect('/grupos_pequenos/'+str(pk_pg)+'/')
-
-
-
-############## Grupo Pequeno #######################
-
-def lider_do_grupo_pequeno(request,pk):
-    if not request.user.perfil.gerenciar_Grupos_Pequenos:
-        return redirect('/sempermissao')
-
-    erro = ''
-    try:
-        grupo_pequeno = Grupo_Pequeno.objects.get(pk=pk)
-        membros = Membro.objects.all().order_by('nome_completo')
-    except Exception as e:
-        return redirect('/grupos_pequenos/')
-    if  request.method == "POST":
-        obs = request.POST.get("obs")
-        id_membro = request.POST.get("membro")
-        membro = Membro.objects.get(pk=id_membro)
-        lider_grupo_pequeno = Lider_Grupo_Pequeno()
-        try:
-            lider_grupo_pequeno.obs = obs
-            lider_grupo_pequeno.lider = membro
-            lider_grupo_pequeno.grupo_pequeno = grupo_pequeno
-            lider_grupo_pequeno.save()
-            #return redirect('/membros/')
-            return redirect('/grupos_pequenos/'+str(pk)+'/')
-        except Exception as e:
-            erro = str(e)
-            #return JsonResponse({"Erro":"Formulario invalido"},safe=True,status=400)
-            return render(request,'novo_lider_do_grupo_pequeno.html',{'membros':membros, 'erro':erro,'grupo_pequeno':grupo_pequeno})
-
-    return render(request,'novo_lider_do_grupo_pequeno.html',{'membros':membros, 'erro':erro, 'grupo_pequeno':grupo_pequeno})
-
-
-class Lider_Grupo_PequenoCreate(CreateView):
-    model = Lider_Grupo_Pequeno
-    fields = '__all__'#quais atributos(todos)
-    template_name = 'create.html'
-    success_url = '/grupos_pequenos/'
-
-    def get(self, request, *args, **kwargs):
-        if not self.request.user.perfil.gerenciar_Grupos_Pequenos:
-            return redirect('/sempermissao')
-        return super(Lider_Grupo_PequenoCreate, self).get(request, *args, **kwargs)
-
-class Lider_Grupo_PequenoUpdate(UpdateView):
-    model = Lider_Grupo_Pequeno
-    fields = '__all__'#quais atributos(todos)
-    success_url = '/grupos_pequenos/'
-    template_name = 'update.html'
-
-    def get(self, request, *args, **kwargs):
-        if not self.request.user.perfil.gerenciar_Grupos_Pequenos:
-            return redirect('/sempermissao')
-        return super(Lider_Grupo_PequenoUpdate, self).get(request, *args, **kwargs)
-
-class Lider_Grupo_PequenoDelete(DeleteView):
-    model = Lider_Grupo_Pequeno
-    success_url = '/grupos_pequenos/'
-    template_name = 'delete.html'
-
-    def get(self, request, *args, **kwargs):
-        if not self.request.user.perfil.gerenciar_Grupos_Pequenos:
-            return redirect('/sempermissao')
-        return super(Lider_Grupo_PequenoDelete, self).get(request, *args, **kwargs)
-
-
-#

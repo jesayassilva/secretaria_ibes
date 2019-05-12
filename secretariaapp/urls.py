@@ -71,20 +71,13 @@ urlpatterns = [
     url(r'^ministerios/delete/(?P<pk>[0-9]+)/$',login_required(MinisterioDelete.as_view()), name='ministerioDelete'),
 
 
-    url(r'^obreiro_ministerio_especifico/new/(?P<pk>[0-9]+)/$',login_required(obreiro_Ministerio_Especifico),name='obreiro_Ministerio_Especifico'),
-    url(r'^obreiro_ministerios/new/(?P<pk>[0-9]+)/$',login_required(obreiro_MinisterioNew),name='obreiro_ministerioNew'),
-    url(r'^obreiro_ministerios/new/$',login_required(Obreiro_MinisterioCreate.as_view()),name='Obreiro_MinisterioCreate'),
-    #url(r'^obreiro_ministerios/(?P<pk>[0-9]+)/$',login_required(obreiro_ministerioDetalhes),name='obreiro_ministerioDetalhes'),
-    #url(r'^obreiro_ministerios/$',login_required(obreiro_ministerio),name='obreiro_ministerios'),
-    url(r'^obreiro_ministerios/update/(?P<pk>[0-9]+)/$',login_required(Obreiro_MinisterioUpdate.as_view()),name='obreiro_ministerioUpdate'),
-    url(r'^obreiro_ministerios/delete/(?P<pk>[0-9]+)/$',login_required(Obreiro_MinisterioDelete.as_view()), name='obreiro_ministerioDelete'),
+    url(r'^obreiro_ou_lider_delete/(?P<mt>[0-9]+)/(?P<mb>[0-9]+)/(?P<opc>[0-9]+)/$',login_required(obreiroOuLiderDelete),name='obreiroOuLiderDelete'),
+    url(r'^obreiro_ou_lider_adicionar/(?P<mt>[0-9]+)/(?P<mb>[0-9]+)/(?P<opc>[0-9]+)/$',login_required(obreiroOuLiderAdicionar),name='obreiroOuLiderAdicionar'),
+
+    url(r'^lider_gp_delete/(?P<gp>[0-9]+)/(?P<mb>[0-9]+)/$',login_required(liderGrupoPequenoDelete),name='liderGrupoPequenoDelete'),
+    url(r'^lider_gp_adicionar/(?P<gp>[0-9]+)/(?P<mb>[0-9]+)/$',login_required(liderGrupoPequenoAdicionar),name='liderGrupoPequenoAdicionar'),
 
 
-    url(r'^lider_do_ministerio/new/(?P<pk>[0-9]+)/$',login_required(lider_do_ministerio),name='lider_do_ministerio'),
-    url(r'^lider_ministerio/new/$',login_required(Lider_MinisterioCreate.as_view()),name='lider_ministerioNew'),
-    url(r'^lider_ministerio_especifico/new/(?P<pk>[0-9]+)/$',login_required(lider_Ministerio_Epecifico_New),name='lider_ministerio_especificoNew'),
-    url(r'^lider_ministerio/update/(?P<pk>[0-9]+)/$',login_required(Lider_MinisterioUpdate.as_view()),name='lider_ministerioUpdate'),
-    url(r'^lider_ministerio/delete/(?P<pk>[0-9]+)/$',login_required(Lider_MinisterioDelete.as_view()), name='lider_ministerioDelete'),
 
     url(r'^grupos_pequenos/new/$',login_required(Grupo_PequenoCreate.as_view()),name='grupo_pequenoNew'),
     url(r'^grupos_pequenos/(?P<pk>[0-9]+)/$',login_required(grupo_pequenoDetalhes),name='grupo_pequenoDetalhes'),
@@ -93,17 +86,6 @@ urlpatterns = [
     url(r'^grupos_pequenos/delete/(?P<pk>[0-9]+)/$',login_required(Grupo_PequenoDelete.as_view()), name='grupo_pequenoDelete'),
 
     url(r'^remover_membro_pg/(?P<pk_m>[0-9]+)/(?P<pk_pg>[0-9]+)/$',login_required(remover_membro_pg), name='remover_membro_pg'),
-
-
-
-    url(r'^lider_do_grupo_pequeno/new/(?P<pk>[0-9]+)/$',login_required(lider_do_grupo_pequeno),name='lider_do_grupo_pequeno'),
-    url(r'^lider_grupos_pequenos/new/$',login_required(Lider_Grupo_PequenoCreate.as_view()),name='lider_grupo_pequenoNew'),
-    #url(r'^lider_grupos_pequenos/(?P<pk>[0-9]+)/$',login_required(lider_grupo_pequenoDetalhes),name='lider_grupo_pequenoDetalhes'),
-    #url(r'^lider_grupos_pequenos/$',login_required(lider_grupo_pequeno),name='grupo_pequeno'),
-    url(r'^lider_grupos_pequenos/update/(?P<pk>[0-9]+)/$',login_required(Lider_Grupo_PequenoUpdate.as_view()),name='lider_grupo_pequenoUpdate'),
-    url(r'^lider_grupos_pequenos/delete/(?P<pk>[0-9]+)/$',login_required(Lider_Grupo_PequenoDelete.as_view()), name='lider_grupo_pequenoDelete'),
-
-
 
 
 ]

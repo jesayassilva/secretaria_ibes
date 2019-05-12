@@ -72,10 +72,10 @@
   </tbody>
 </table>
 
- <a href="{% url 'secretariaapp:perfilUpdate' perfil.pk  %}" class="ui red button" > Editar Permissões </a>
+ <a href="{% url 'secretariaapp:perfilUpdate' perfil.pk  %}" class="ui button" > Editar Permissões </a>
  <!--<a href="{% url 'secretariaapp:perfilDetalhes' perfil.pk  %}" class="ui blue button" > Visualizar </a>-->
- <a href="{% url 'secretariaapp:userUpdate' perfil.user.pk  %}" class="ui red button" > Alterar Usuario </a>
- <a href="{% url 'secretariaapp:userDelete' perfil.user.pk  %}" class="ui button"  > Deletar </a>
+ <a href="{% url 'secretariaapp:userUpdate' perfil.user.pk  %}" class="ui button" > Alterar Usuario </a>
+ <a href="{% url 'secretariaapp:userDelete' perfil.user.pk  %}" class="ui red button"  > Deletar </a>
 
 </div>
 {% include 'rodape.html' %}

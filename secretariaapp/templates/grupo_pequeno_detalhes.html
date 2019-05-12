@@ -18,22 +18,19 @@
           <thead>
             <tr>
               <th>Nome</th>
-              <th>Observações</th>
-              <th colspan="2"> Opções</th>
+              <th colspan="1"> Opções</th>
             </tr>
           </thead>
           <tbody>
               {% for lider_grupo_pequeno in lider_grupo_pequeno  %}
               <tr>
-                <td>{{  lider_grupo_pequeno.lider }}</td>
-                <td>{{  lider_grupo_pequeno.obs }}</td>
-                <td><a href="{% url 'secretariaapp:lider_grupo_pequenoUpdate' lider_grupo_pequeno.pk  %}" class="ui red button" > Editar </a> </td>
-                <td><a href="{% url 'secretariaapp:lider_grupo_pequenoDelete' lider_grupo_pequeno.pk  %}" class="ui button"  > Remover </a> </td>
+                <td>{{  lider_grupo_pequeno.nome_completo }}</td>
+                <td><a href="{% url 'secretariaapp:liderGrupoPequenoDelete' grupo_pequeno.pk lider_grupo_pequeno.pk  %}" class="ui red button"  > Remover </a> </td>
               </tr>
             {% endfor %}
           </tbody>
         </table>
-        <a href="{% url 'secretariaapp:lider_do_grupo_pequeno' grupo_pequeno.pk %}" class="ui button yellow" > Novo Lider do Grupo Pequeno(PG) </a>
+        <a href="{% url 'secretariaapp:liderGrupoPequenoAdicionar' grupo_pequeno.pk 0 %}" class="ui button yellow" > Novo Lider do Grupo Pequeno(PG) </a>
         <p></p>
 
 
@@ -52,8 +49,8 @@
               {% for membro in membros  %}
               <tr>
                 <td>{{  membro.nome_completo }}</td>
-                <td><a href="{% url 'secretariaapp:membro_especifico_no_grupo_pequenoNew' membro.pk  %}" class="ui red button" > Editar </a></td>
-                <td><a href="{% url 'secretariaapp:remover_membro_pg' membro.pk grupo_pequeno.pk  %}" class="ui button"  > Remover Membro do Grupo Pequeno (PG) </a></td>
+                <td><a href="{% url 'secretariaapp:membro_especifico_no_grupo_pequenoNew' membro.pk  %}" class="ui button" > Editar </a></td>
+                <td><a href="{% url 'secretariaapp:remover_membro_pg' membro.pk grupo_pequeno.pk  %}" class="ui red button"  > Remover Membro do Grupo Pequeno (PG) </a></td>
               </tr>
             {% endfor %}
           </tbody>
@@ -68,8 +65,8 @@
 
         <div class="">
           <h1></h1>
-          <a href="{% url 'secretariaapp:grupo_pequenoUpdate' grupo_pequeno.pk  %}" class="ui red button" > Editar </a>
-          <a href="{% url 'secretariaapp:grupo_pequenoDelete' grupo_pequeno.pk  %}" class="ui button"  > Deletar</a>
+          <a href="{% url 'secretariaapp:grupo_pequenoUpdate' grupo_pequeno.pk  %}" class="ui button" > Editar </a>
+          <a href="{% url 'secretariaapp:grupo_pequenoDelete' grupo_pequeno.pk  %}" class="ui red button"  > Deletar</a>
         </div>
 
 

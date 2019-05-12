@@ -1,0 +1,58 @@
+{% include 'cabecalho.html' %}
+<div class="corpo_app">
+
+
+<h2>Novo Lider de  Grupo Pequeno:  </h2>
+
+
+<form class="ui form" action="" method="post">{% csrf_token %}
+
+  {% if erro %}
+  <div class="ui negative message">
+    <ul class="list">
+      <b>
+        {{ erro }}
+      </b>
+    </ul>
+  </div>
+  {% endif %}
+
+
+  <div class="field">
+      <label for="id_grupo_pequeno">Ministério:</label>
+        <select name="grupo_pequeno" id="id_grupo_pequeno" required>
+          <option value="" selected>Selecione o Grupo Pequeno a Liderar</option>
+          {% for grupo_pequeno in grupos_pequenos  %}
+              {%if grupo_pequeno_especifico == grupo_pequeno%}
+                  <option value="{{grupo_pequeno.pk}}" selected >{{grupo_pequeno.nome}}</option>
+              {% else %}
+                  <option value="{{grupo_pequeno.pk}}">{{grupo_pequeno.nome}}</option>
+              {% endif %}
+          {% endfor %}
+        </select>
+  </div>
+<p></p>
+
+
+<div class="field">
+    <label for="id_obreiro">Lider:</label>
+      <select name="obreiro" id="id_obreiro" required>
+        <option value="" selected>Selecione o Lider</option>
+        {% for membro in membros  %}
+            {%if membro_especifico == membro%}
+                <option value="{{membro.pk}}" selected >{{membro.nome_completo}}</option>
+            {% else %}
+                <option value="{{membro.pk}}">{{membro.nome_completo}}</option>
+            {% endif %}
+        {% endfor %}
+      </select>
+</div>
+<p></p>
+
+
+    <input type="submit" value="Salvar" class="ui button positive" />
+    <a href="javascript:window.history.go(-1)" class="ui red button" >Cancelar</a>
+</form>
+
+</div>
+{% include 'rodape.html' %}

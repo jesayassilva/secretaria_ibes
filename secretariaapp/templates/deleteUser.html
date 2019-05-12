@@ -5,7 +5,7 @@
 <form action="" class="ui text container" style="text-align: center;margin-top: 2em;" method="post">{% csrf_token %}
     <h2>Tem certeza que Deseja Excluir o usuario "{{ object }}"?</h2>
     <h3>Esta ação é irreversível e o usuario não poderá mais acessar o Sistema! </h3>
-    <button type="submit" class="ui button"   >Confirmar</button>
+    <button type="submit" class="ui positive button"   >Confirmar</button>
     <a href="javascript:window.history.go(-1)" class="ui red button" >Cancelar</a>
 </form>
 

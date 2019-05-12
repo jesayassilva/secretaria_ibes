@@ -106,7 +106,7 @@
 
 
     <div class="field">
-      <label>Membros Ativos quem Participam em Ministérios:</label>
+      <label>Membros Ativos que Participam em Ministérios:</label>
       {{dados.membros_ativo_participacao_ministerio}}
     </div>
 
@@ -118,20 +118,20 @@
 
 
     <div class="field">
-      <label>Porcentagem Membros Ativos que não Participam de Nenhum Ministério:</label>
-      {{dados.porcentagem_membros_ativo_sem_participacao_ministerio}}%
+      <label>Porcentagem Membros Ativos que Participam de Algum Ministério:</label>
+      {{dados.porcentagem_membros_ativo_participacao_ministerio}}%
     </div>
 
 
     <div class="field">
-      <label>Membros Ativos com Participação na Liderança:</label>
-      {{dados.membros_ativo_participacao_lideranca}}
+      <label>Membros Ativos com Participação em Grupo Pequeno:</label>
+      {{dados.membros_ativo_participacao_gp}}
     </div>
 
 
     <div class="field">
-      <label>Porcentagem Membros Ativos com Participação na Liderança:</label>
-      {{dados.porcentagem_membros_ativo_participacao_lideranca}}%
+      <label>Porcentagem Membros Ativos com Participação em Grupo Pequeno:</label>
+      {{dados.porcentagem_membros_ativo_participacao_gp}}%
     </div>
 
 
@@ -178,6 +178,11 @@
             <tr>
               {% for trilha in trilha  %}
               <td>{{trilha.quantidade}}</td>
+              {% endfor  %}
+            </tr>
+            <tr>
+              {% for trilha in trilha  %}
+              <td>{{trilha.porTrilha}}</td>
               {% endfor  %}
             </tr>
         </tbody>
